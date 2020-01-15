@@ -1,0 +1,55 @@
+{
+  "in_msg_type": "pyramid_image",
+  "net_info": {
+    "model_name": "multitask",
+    "model_version": "0.0.18",
+    "model_out_sequence": [
+      {
+        "type": "_"
+      },
+      {
+        "name": "body_box",
+        "type": "bbox"
+      },
+      {
+        "type": "_"
+      },
+      {
+        "name": "head_box",
+        "type": "bbox"
+      },
+      {
+        "type": "_"
+      },
+      {
+        "name": "face_box",
+        "type": "bbox"
+      },
+      {
+        "name": "reid",
+        "type": "reid",
+        "box_name": "body_box"
+      },
+      {
+        "name": "kps",
+        "type": "kps",
+        "box_name": "body_box"
+      },
+      {
+        "name": "mask",
+        "type": "mask",
+        "box_name": "body_box"
+      }
+    ],
+    "model_input_width": 960,
+    "model_input_height": 540,
+    "pyramid_layer": 4,
+    "kps_pos_distance": 0.09765625,
+    "kps_feat_width": 16,
+    "kps_feat_height": 16,
+    "kps_points_number": 17
+  },
+  "method_outs": ["face_box", "head_box", "body_box","kps","mask","reid"],
+  "bpu_config_path": "../configs/bpu_config.json",
+  "model_file_path": "../models/multitask.hbm"
+}

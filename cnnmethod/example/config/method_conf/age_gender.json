@@ -1,0 +1,10 @@
+{
+  "model_name": "faceAgeGender",
+  "model_version": "1.2",
+  "model_file_path": "../models/PanelBoard.hbm",
+  "bpu_config_path": "../configs/bpu_config.json",
+  "in_msg_type": "rect",
+  "post_fn": "age_gender",
+  "max_handle_num": -1,
+  "output_size": 2
+}

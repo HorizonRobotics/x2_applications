@@ -1,0 +1,81 @@
+ {
+        "inputs" : 
+        [
+            "image"
+        ],
+        "name" : "main",
+        "outputs" : 
+        [
+            "vehicle_box",
+            "pedestrian_box"
+        ],
+        "workflow" : 
+        [
+            {
+                "inputs" : 
+                [
+                    "image"
+                ],
+                "method_config_file" : 
+                {
+                    "threshold" : 80
+                },
+                "method_type" : "vehicle_PreProcess",
+                "outputs" : 
+                [
+                    "det_vehicle_pre_out0",
+                    "det_vehicle_pre_out1"
+                ],
+                "unique_name" : "det_vehicle_pre"
+            },
+            {
+                "inputs" : 
+                [
+                    "det_vehicle_pre_out0",
+                    "det_vehicle_pre_out1"
+                ],
+                "method_type" : "CNNMethod",
+                "outputs" : 
+                [
+                    "det_vehicle_cnn_out0"
+                ],
+                "unique_name" : "det_vehicle_cnn"
+            },
+            {
+                "inputs" : 
+                [
+                    "det_vehicle_cnn_out0"
+                ],
+                "method_type" : "vehicle_PostProcess",
+                "outputs" : 
+                [
+                    "vehicle_box"
+                ],
+                "unique_name" : "det_vehicle_post"
+            },
+            {
+                "inputs" : 
+                [
+                    "vehicle_box"
+                ],
+                "method_config" : 
+                {
+                    "array" : 
+                    [
+                        1,
+                        2,
+                        3
+                    ],
+                    "desc" : "test desc",
+                    "num" : 10,
+                    "out_num" : 1
+                },
+                "method_type" : "TestMethod",
+                "outputs" : 
+                [
+                    "pedestrian_box"
+                ],
+                "unique_name" : "test0"
+            }
+        ]
+    }

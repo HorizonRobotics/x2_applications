@@ -1,0 +1,25 @@
+{
+  "inputs": [
+    "face_box",
+    "pyramid"
+  ],
+  "outputs": [
+    "cnn_anti_spf_nir",
+    "norm_rois"
+  ],
+  "workflow": [
+    {
+      "unique_name": "anti_nir_example",
+      "method_type": "CNNMethod",
+      "inputs": [
+        "face_box",
+        "pyramid"
+      ],
+      "outputs": [
+        "cnn_anti_spf_nir",
+        "norm_rois"
+      ],
+      "method_config_file": "method_conf/nir.json"
+    }
+  ]
+}

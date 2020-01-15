@@ -1,0 +1,12 @@
+{
+  "model_name" : "faceQuality",
+  "model_version": "x2.0.5",
+  "in_msg_type" : "img",
+  "model_file_path": "../models/faceQuality.hbm",
+  "bpu_config_path": "../configs/bpu_config.json",
+  "post_fn" : "face_quality",
+  "norm_method": "norm_by_nothing",
+  "threshold": 0.5,
+  "max_handle_num": -1,
+  "output_size" : 14
+}

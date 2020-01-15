@@ -1,0 +1,10 @@
+{
+  "model_name" : "facePoseLMKs",
+  "model_version": "v0.0.1",
+  "in_msg_type" : "rect",
+  "model_file_path": "../models/facePoseLMKs.hbm",
+  "bpu_config_path": "../configs/bpu_config.json",
+  "post_fn" : "lmk_pose",
+  "max_handle_num": -1,
+  "output_size" : 2
+}

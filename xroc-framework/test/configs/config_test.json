@@ -1,0 +1,41 @@
+{
+  "max_running_count": 10000,
+  "inputs": [
+    "global_in"
+  ],
+  "outputs": [
+    "global_out"
+  ],
+  "workflow": [
+    {
+      "thread_count": 3,
+      "method_type": "TestMethod",
+      "unique_name": "first_method",
+      "inputs": [
+        "global_in"
+      ],
+      "outputs": [
+        "tmp_data1",
+        "invalid1",
+        "invalid2",
+        "tmp_data2"
+      ],
+      "method_config_file": "null"
+    },
+    {
+      "thread_count": 3,
+      "method_type": "TestMethod",
+      "unique_name": "second_method",
+      "inputs": [
+        "tmp_data3"
+      ],
+      "outputs": [
+        "tmp_data3",
+        "invalid3",
+        "invalid4",
+        "global_out"
+      ],
+      "method_config_file": "null"
+    }
+  ]
+}

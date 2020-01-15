@@ -1,0 +1,15 @@
+{
+  "model_name": "faceAntiSpfRGB",
+  "model_version": "x2.1.0.11",
+  "model_file_path": "../models/faceAntiSpfRGB.hbm",
+  "bpu_config_path": "../configs/bpu_config.json",
+  "in_msg_type": "img",
+  "norm_method": "norm_by_lside_square",
+  "filter_method": "no_filter",
+  "expand_scale": 1.5,
+  "post_fn": "antispoofing",
+  "threshold": 0.1,
+  "max_handle_num": -1,
+  "rotate_degree": 270,
+  "output_size": 2
+}

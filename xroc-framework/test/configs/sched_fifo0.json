@@ -1,0 +1,4 @@
+{
+  "thread_policy": "SCHED_FIFO",
+  "thread_priority": 10
+}

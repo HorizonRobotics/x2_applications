@@ -1,0 +1,25 @@
+{
+  "inputs": [
+    "box_list",
+    "pose_3d_list",
+    "land_mark_list",
+    "quality_list"
+  ],
+  "outputs": ["select_score_list"],
+  "workflow": [
+    {
+      "unique_name": "grading_example",
+      "method_type": "GradingMethod",
+      "inputs": [
+        "box_list",
+        "pose_3d_list",
+        "land_mark_list",
+        "quality_list"
+      ],
+      "outputs": [
+        "select_score_list"
+      ],
+      "method_config_file": "method_param.json"
+    }
+  ]
+}

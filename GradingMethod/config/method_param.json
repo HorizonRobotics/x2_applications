@@ -1,0 +1,12 @@
+{
+  "grading_type": "weight_grading",
+  "size_min": 40,
+  "size_max": 200,
+  "size_inflexion": 80,
+  "frontal_thr": 1000,
+  "size_weight": 0.2,
+  "pose_weight": 0.3,
+  "lmk_weight": 0.3,
+  "quality_weight": 0.2,
+  "normalize_lmk_divisor": 75
+}

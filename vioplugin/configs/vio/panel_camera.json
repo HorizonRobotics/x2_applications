@@ -1,0 +1,8 @@
+{
+  "type": "mono",
+  "cam_index": 0,
+  "mono_cam_cfg_file": "config/vio/hb_x2dev.json",
+  "mono_vio_cfg_file": "config/vio/vio_onsemi0230.json",
+  "dual_cam_cfg_file": "config/vio/hb_x2dev.json",
+  "dual_vio_cfg_file": "config/vio/vio_onsemi_dual.json"
+}

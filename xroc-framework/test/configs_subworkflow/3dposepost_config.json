@@ -1,0 +1,5 @@
+{
+  "post_fn" : "lmk_pose",
+  "output_size" : 1,
+  "output_names": ["3dpose_out"]
+}

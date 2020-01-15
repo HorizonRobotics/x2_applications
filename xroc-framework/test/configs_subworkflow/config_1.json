@@ -1,0 +1,38 @@
+{
+	"version": "1.1",
+	"templates": [
+		"@include: ./cnn_tpl.json"
+	],
+	"workflows": [
+	    {
+			"name": "main",
+			"type": "workflow",
+			"inputs": ["image"],
+			"outputs": ["vehicle_box", "pedestrian_box"],
+			"workflow": [{
+					"type": "template_ref",
+					"template_name": "cnn.tpl",
+					"parameters": {
+						"name": "det_vehicle",
+						"pre_method": "vehicle_PreProcess",
+						"post_method": "vehicle_PostProcess",
+						"inputs": "image",
+						"outputs": "vehicle_box"
+					}
+				},
+				{
+					"type": "template_ref",
+					"template_name": "cnn.tpl",
+					"parameters": {
+						"name": "det_pedestrian",
+						"pre_method": "pedestrian_PreProcess",
+						"post_method": "pedestrian_PostProcess",
+						"inputs": "vehicle_box",
+						"outputs": "pedestrian_box"
+					}
+				}
+			]
+		}
+	]
+}
+

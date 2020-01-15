@@ -1,0 +1,68 @@
+{
+  "max_running_count": 10000,
+  "inputs": ["face_head_box"],
+  "outputs": ["face_head_box_filter_3", "face_head_box_filter_5"],
+  "workflow": [
+    {
+      "thread_count": 3,
+      "method_type": "BBoxFilter",
+      "unique_name": "BBoxFilter_1",
+      "inputs": [
+        "face_head_box"
+      ],
+      "outputs": [
+        "face_head_box_filter_1"
+      ],
+      "method_config_file": "null"
+    },
+    {
+      "thread_count": 3,
+      "method_type": "BBoxFilter",
+      "unique_name": "BBoxFilter_2",
+      "inputs": [
+        "face_head_box_filter_1"
+      ],
+      "outputs": [
+        "face_head_box_filter_2"
+      ],
+      "method_config_file": "null"
+    },
+	{
+      "thread_count": 3,
+      "method_type": "BBoxFilter",
+      "unique_name": "BBoxFilter_3",
+      "inputs": [
+        "face_head_box_filter_2"
+      ],
+      "outputs": [
+        "face_head_box_filter_3"
+      ],
+      "method_config_file": "null"
+    },
+    {
+      "thread_count": 3,
+      "method_type": "BBoxFilter",
+      "unique_name": "BBoxFilter_4",
+      "inputs": [
+        "face_head_box_filter_1"
+      ],
+      "outputs": [
+        "face_head_box_filter_4"
+      ],
+      "method_config_file": "null"
+    },
+    {
+      "thread_count": 3,
+      "method_type": "BBoxFilter",
+      "unique_name": "BBoxFilter_5",
+      "inputs": [
+        "face_head_box_filter_4"
+      ],
+      "outputs": [
+        "face_head_box_filter_5"
+      ],
+      "method_config_file": "null"
+    }
+  ]
+}
+

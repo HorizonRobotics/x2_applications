@@ -1,0 +1,61 @@
+/**
+ * Copyright (c) 2019 Horizon Robotics. All rights reserved.
+ * @file      pack.proto
+ * @hbipc     protobuf interface
+ * @author    hao.tian
+ * @email     hao.tian@horizon.ai
+ * @date      2019.08.08
+ * @version   1.0.0
+ */
+
+syntax = "proto3";
+package pack;
+option optimize_for = LITE_RUNTIME;
+
+//帧的附加数据类型
+message Frame {
+  enum FrameType {
+    Unkown = 0;
+    SmartFrame = 1;
+    DropFrame = 2;
+    ErrorFrame = 3;
+  }
+  uint64 sequence_id_ = 1;
+  uint64 timestamp_ = 2;
+  FrameType frame_type_ = 3;
+}
+
+// Log数据等的附加类型
+message Check {
+  repeated bytes md5sum = 1;
+}
+
+//附加数据
+message Addition {
+  Check check_ = 1;
+  Frame frame_ = 2;
+}
+
+message MessagePack {
+  //数据流向
+  enum Flow {
+    Unknown = 0;
+    AP2CP = 1;
+    CP2AP = 2;
+  }
+
+  enum Type {
+    kUnknown = 0;
+    kXPlugin = 1;
+    kXConfig = 2;
+  }
+
+  // 封装类型
+  Flow flow_ = 1;
+  Type type_ = 2;
+  Addition addition_ = 3;
+  // content 根据type_来判断
+  // 当type_为kXPlugin时为智能数据
+  // 当type_为kXConfig时为配置数据
+  bytes content_ = 4;
+}

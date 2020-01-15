@@ -1,0 +1,10 @@
+{
+  "model_name": "faceID",
+  "in_msg_type": "lmk",
+  "model_version": "X2_1.4",
+  "model_file_path": "../models/faceID.hbm",
+  "bpu_config_path": "../configs/bpu_config.json",
+  "post_fn": "face_feature",
+  "max_handle_num": -1,
+  "output_size": 1
+}

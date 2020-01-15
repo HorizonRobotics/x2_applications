@@ -1,0 +1,35 @@
+{
+  "inputs": [
+    "pyramid"
+  ],
+  "outputs": [
+    "cnn_age",
+    "cnn_gender"
+  ],
+  "workflow": [
+    {
+      "unique_name": "fasterrcnndet",
+      "method_type": "FasterRCNNMethod",
+      "inputs": [
+        "pyramid"
+      ],
+      "outputs": [
+        "face_box"
+      ],
+      "method_config_file": "method_conf/face_det.json"
+    },
+    {
+      "unique_name": "age_gender",
+      "method_type": "CNNMethod",
+      "inputs": [
+        "face_box",
+        "pyramid"
+      ],
+      "outputs": [
+        "cnn_age",
+        "cnn_gender"
+      ],
+      "method_config_file": "method_conf/age_gender.json"
+    }
+  ]
+}

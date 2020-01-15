@@ -1,0 +1,20 @@
+{
+  "snapshot_type": "first_num_best",
+  "scale_rate": 1.6,
+  "need_resize": false,
+  "output_width": 128,
+  "output_height": 128,
+  "update_steps": 0,
+  "snaps_per_track": 1,
+  "max_tracks": 256,
+  "max_crop_num_per_frame": 20,
+  "smoothing_frame_range": 10,
+  "avg_crop_num_per_frame": 2,
+  "begin_post_frame_thr": 1,
+  "resnap_value": 3,
+  "save_original_image_frame": false,
+  "report_flushed_track_flag": true,
+  "out_date_target_post_flag": true,
+  "repeat_post_flag": true,
+  "desp": "update_steps:对每个抓拍图打分，当新的抓拍图分数超过前一个优选的抓拍图update_steps分数时，才会成功替换；resnap_value：重抓拍帧数，当resnap_value 大于begin_post_frame_thr时，会启动重抓拍"
+}

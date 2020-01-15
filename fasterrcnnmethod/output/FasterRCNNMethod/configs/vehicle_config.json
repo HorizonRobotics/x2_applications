@@ -1,0 +1,50 @@
+{
+  "in_msg_type": "pyramid_image",
+  "net_info": {
+    "model_name": "vehicleMultitask",
+    "model_version": "1.0.0",
+    "model_out_sequence": [
+      {
+        "name": "vehicle_box",
+        "type": "bbox"
+      },
+      {
+        "name": "plate_box",
+        "type": "bbox"
+      },
+      {
+        "name": "non_motor_box",
+        "type": "bbox"
+      },
+      {
+        "name": "pedestrian_box",
+        "type": "bbox"
+      },
+      {
+        "name": "front_window_box",
+        "type": "bbox"
+      },
+      {
+        "name": "plate_color",
+        "type": "plate_color",
+        "box_name": "plate_box"
+      },
+      {
+        "name": "plate_row",
+        "type": "plate_row",
+        "box_name": "plate_box"
+      },
+      {
+        "type": "_"
+      }
+    ],
+    "model_input_width": 960,
+    "model_input_height": 540,
+    "pyramid_layer": 4,
+    "plate_color_num": 6,
+    "plate_row_num": 2
+  },
+  "method_outs": ["vehicle_box", "plate_box", "non_motor_box", "pedestrian_box", "front_window_box", "plate_color", "plate_row"],
+  "bpu_config_path": "../configs/bpu_config.json",
+  "model_file_path": "../models/vehicle.hbm"
+}

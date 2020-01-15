@@ -1,0 +1,59 @@
+{
+	"version": "1.1",
+	"templates": [
+		"@include: ./cnn_tpl.json",
+		{
+			"type": "template",
+			"template_name": "test_config.tpl",
+			"parameters": [
+				"num",
+				"desc",
+				"out_num",
+				"array"
+			],
+			"template": {
+				"num": "${num}",
+				"desc": "${desc}",
+				"out_num": "${out_num}",
+				"array": "${array}"
+			}
+		}
+	],
+	"workflows": [
+	    {
+			"name": "main",
+			"type": "workflow",
+			"inputs": ["image"],
+			"outputs": ["vehicle_box", "pedestrian_box"],
+			"workflow": [{
+					"type": "template_ref",
+					"template_name": "cnn.tpl",
+					"parameters": {
+						"name": "det_vehicle",
+						"pre_method": "vehicle_PreProcess",
+						"post_method": "vehicle_PostProcess",
+						"inputs": "image",
+						"outputs": "vehicle_box"
+					}
+				},
+				{
+					"type": "node",
+					"unique_name": "test0",
+					"method_type": "TestMethod",
+					"inputs": ["vehicle_box"],
+					"outputs": ["pedestrian_box"],
+					"method_config": {
+						"type": "template_ref",
+						"template_name": "test_config.tpl",
+						"parameters": {
+							"num": 10,
+							"desc": "test desc",
+							"out_num": 1,
+							"array": [1, 2, 3]
+						}
+					}
+				}
+			]
+		}
+	]
+}

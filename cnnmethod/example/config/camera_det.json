@@ -1,0 +1,58 @@
+{
+  "inputs": [
+    "bgr_pyramid",
+    "gray_pyramid"
+  ],
+  "outputs": [
+    "cnn_anti_spf_bgr",
+    "cnn_anti_spf_nir"
+  ],
+  "workflow": [
+    {
+      "unique_name": "fasterrcnndet1",
+      "method_type": "FasterRCNNMethod",
+      "inputs": [
+        "bgr_pyramid"
+      ],
+      "outputs": [
+        "face_box1"
+      ],
+      "method_config_file": "method_conf/face_det.json"
+    },
+    {
+      "unique_name": "fasterrcnndet2",
+      "method_type": "FasterRCNNMethod",
+      "inputs": [
+        "gray_pyramid"
+      ],
+      "outputs": [
+        "face_box2"
+      ],
+      "method_config_file": "method_conf/face_det.json"
+    },
+    {
+      "method_type": "CNNMethod",
+      "unique_name": "anti_bgr_spf",
+      "inputs": [
+        "face_box1",
+        "bgr_pyramid"
+      ],
+      "outputs": [
+        "cnn_anti_spf_bgr"
+      ],
+      "method_config_file": "method_conf/anti_spf.json"
+    },
+    {
+      "method_type": "CNNMethod",
+      "unique_name": "anti_gray_spf",
+      "inputs": [
+        "face_box2",
+        "gray_pyramid"
+      ],
+      "outputs": [
+        "cnn_anti_spf_nir"
+      ],
+      "method_config_file": "method_conf/nir.json"
+    }
+  ]
+}

@@ -1,0 +1,176 @@
+{
+  "inputs": ["image"],
+  "outputs": [
+    "image",
+    "face_bbox_list",
+    "lmk",
+    "pose",
+    "feature_list"
+  ],
+  "workflow": [
+    {
+      "thread_count": 1,
+      "method_type": "FasterRCNNMethod",
+      "unique_name": "multi_task",
+      "inputs": [
+        "image"
+      ],
+      "outputs": [
+        "face_box",
+        "lmk",
+        "pose"
+      ],
+      "method_config_file": "face_pose_lmk_config_horizontal_1080p.json"
+    },
+    {
+      "thread_count": 1,
+      "method_type": "MOTMethod",
+      "unique_name": "face_mot",
+      "inputs": [
+        "face_box"
+      ],
+      "outputs": [
+        "face_bbox_list",
+        "face_disappeared_track_id_list"
+      ],
+      "method_config_file": "iou_method_param.json"
+    },
+    {
+      "method_type": "FaceSnapFilterMethod",
+      "unique_name": "box_filter",
+      "inputs": [
+        "face_bbox_list"
+      ],
+      "outputs": [
+        "box_filter_info",
+        "face_bbox_list_filtered"
+      ],
+      "method_config_file": "box_filter_1080p.json"
+    },
+    {
+      "method_type": "CNNMethod",
+      "unique_name": "face_quality",
+      "inputs": [
+        "face_bbox_list_filtered",
+        "image"
+      ],
+      "outputs": [
+        "blur",
+        "brightness",
+        "eye_abnormalities",
+        "mouth_abnormal",
+        "left_eye",
+        "right_eye",
+        "left_brow",
+        "right_brow",
+        "forehead",
+        "left_cheek",
+        "right_cheek",
+        "nose",
+        "mouth",
+        "jaw"
+      ],
+      "method_config_file": "face_quality_horizontal.json"
+    },
+    {
+      "method_type": "FaceSnapFilterMethod",
+      "unique_name": "filter",
+      "inputs": [
+        "face_bbox_list_filtered",
+        "pose",
+        "lmk",
+        "blur",
+        "brightness",
+        "eye_abnormalities",
+        "mouth_abnormal",
+        "left_eye",
+        "right_eye",
+        "left_brow",
+        "right_brow",
+        "forehead",
+        "left_cheek",
+        "right_cheek",
+        "nose",
+        "mouth",
+        "jaw"
+      ],
+      "outputs": [
+        "filter_info",
+        "rgb_bbox_list_final",
+        "pose_after_filter",
+        "lmk_after_filter",
+        "blur_after_filter",
+        "brightness_after_filter",
+        "eye_abnormalities_after_filter",
+        "mouth_abnormal_after_filter",
+        "left_eye_after_filter",
+        "right_eye_after_filter",
+        "left_brow_after_filter",
+        "right_brow_after_filter",
+        "forehead_after_filter",
+        "left_cheek_after_filter",
+        "right_cheek_after_filter",
+        "nose_after_filter",
+        "mouth_after_filter",
+        "jaw_after_filter"
+      ],
+      "method_config_file": "rgb_filter_1080p.json"
+    },
+    {
+      "method_type": "GradingMethod",
+      "unique_name": "grading",
+      "inputs": [
+        "rgb_bbox_list_final",
+        "pose_after_filter",
+        "lmk_after_filter",
+        "blur_after_filter"
+      ],
+      "outputs": [
+        "select_score_list"
+      ],
+      "method_config_file": "grading.json"
+    },
+    {
+      "method_type": "SnapShotMethod",
+      "unique_name": "snapshot",
+      "inputs": [
+        "image",
+        "rgb_bbox_list_final",
+        "select_score_list",
+        "face_disappeared_track_id_list",
+        "pose_after_filter",
+        "lmk_after_filter",
+        "rgb_bbox_list_final",
+        "blur",
+        "brightness",
+        "eye_abnormalities",
+        "mouth_abnormal",
+        "left_eye",
+        "right_eye",
+        "left_brow",
+        "right_brow",
+        "forehead",
+        "left_cheek",
+        "right_cheek",
+        "nose",
+        "mouth",
+        "jaw"
+      ],
+      "outputs": [
+        "snap_list"
+      ],
+      "method_config_file": "snapshot.json"
+    },
+    {
+      "method_type": "CNNMethod",
+      "unique_name": "face_feature",
+      "inputs": [
+        "snap_list"
+      ],
+      "outputs": [
+        "feature_list"
+      ],
+      "method_config_file": "feature.json"
+    }
+  ]
+}

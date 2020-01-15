@@ -1,0 +1,33 @@
+{
+    "inputs": [
+        "in_bbox"
+    ],
+    "outputs": [
+        "bbox_filtered_A",
+        "bbox_filtered_B"
+    ],
+    "workflow": [
+        {
+            "method_type": "BBoxFilter",
+            "unique_name": "BBoxFilter_A",
+            "inputs": [
+                "in_bbox"
+            ],
+            "outputs": [
+                "bbox_filtered_A"
+            ],
+            "method_config_file": "a_filter.json"
+        },
+        {
+            "method_type": "BBoxFilter",
+            "unique_name": "BBoxFilter_B",
+            "inputs": [
+                "in_bbox"
+            ],
+            "outputs": [
+                "bbox_filtered_B"
+            ],
+            "method_config_file": "b_filter.json"
+        }
+    ]
+}

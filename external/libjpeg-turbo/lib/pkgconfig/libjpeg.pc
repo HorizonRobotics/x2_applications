@@ -1,0 +1,10 @@
+prefix=/tmp/tmp.SyfChBO9nl/build/output/libjpeg-turbo
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: libjpeg
+Description: A SIMD-accelerated JPEG codec that provides the libjpeg API
+Version: 1.5.3
+Libs: -L${libdir} -ljpeg
+Cflags: -I${includedir}

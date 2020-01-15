@@ -1,0 +1,228 @@
+{
+    "name" : "main",
+    "inputs": [
+        "image"
+    ],
+    "outputs": [
+        "face_box_list",
+        "snap_info"
+    ],       
+    "workflow": [
+    {
+        "unique_name": "multi_task",
+        "method_type": "FasterrcnnMethod",
+        "inputs": ["image"],
+        "outputs": [
+            "face_box",
+            "head_box",
+            "kps"
+        ],
+        "thread_list": [0,1],
+        "method_config": 
+        {
+            "bpu_config": 
+            {
+                "core_engine": "dual",
+                "debug": 0,
+                "enable_core_num": 2,
+                "engine_type": "naive",
+                "max_bpu_buffer": 1024,
+                "max_task": 32
+            },
+            "in_msg_type": "pyramid_image",
+            "method_outs": [
+                "face_box",
+                "head_box",
+                "kps"
+            ],
+            "model_file_path": "../models/multitask.hbm",
+            "net_info": 
+            {
+                "kps_feat_height": 16,
+                "kps_feat_width": 16,
+                "kps_points_number": 17,
+                "kps_pos_distance": 0.09765625,
+                "model_input_height": 540,
+                "model_input_width": 960,
+                "model_name": "multitask",
+                "model_out_sequence": [
+                {
+                    "type": "_"
+                },
+                {
+                    "name": "body_box",
+                    "type": "bbox"
+                },
+                {
+                    "type": "_"
+                },
+                {
+                    "name": "head_box",
+                    "type": "bbox"
+                },
+                {
+                    "type": "_"
+                },
+                {
+                    "name": "face_box",
+                    "type": "bbox"
+                },
+                {
+                    "box_name": "body_box",
+                    "name": "reid",
+                    "type": "reid"
+                },
+                {
+                    "box_name": "body_box",
+                    "name": "kps",
+                    "type": "kps"
+                },
+                {
+                    "box_name": "body_box",
+                    "name": "mask",
+                    "type": "mask"
+                }],
+                "model_version": "0.0.18",
+                "pyramid_layer": 4
+            }
+        }
+    },
+    {
+        "unique_name": "face_track",
+        "inputs": ["face_box"],
+        "outputs": [
+            "face_box_list",
+            "face_track_disappear_list"
+        ],
+        "method_type": "MOTMethod",
+        "method_config": {
+            "device": "X2",
+            "max_det_target_num": 256,
+            "max_track_target_num": 256,
+            "need_check_merge": false,
+            "original_bbox": true,
+            "support_hungarian": false,
+            "tracker_type": "IOU",
+            "update_no_target_predict": false
+        }
+    },
+    {        
+        "unique_name": "3dpose_bbox_pre",
+        "inputs": [
+            "image",
+            "face_box"
+        ],
+        "outputs": [
+            "3dpose_pre_out0",
+            "3dpose_pre_out1"
+        ],
+        "method_type": "rect_input",
+        "method_config": 
+        {
+            "in_msg_type": "rect",
+            "model_file_path": "../models/IPCModel.hbm"
+        }
+    },
+    {
+        "unique_name": "3dpose_bbox_cnn",
+        "inputs": [
+            "3dpose_pre_out0",
+            "3dpose_pre_out1"
+        ],
+        "outputs": ["3dpose_cnn_out0"],
+        "method_type": "x2_predictor",
+        "method_config": {
+            "core_engine": "dual",
+            "debug": 0,
+            "enable_core_num": 2,
+            "engine_type": "naive",
+            "max_bpu_buffer": 1024,
+            "max_task": 32
+        }
+    },
+    {
+        "unique_name": "3dpose_bbox_post",
+        "inputs": [
+            "3dpose_cnn_out0"
+        ],
+        "outputs": ["3dpose_out"],
+        "method_type": "regression_postprocess",
+        "method_config": {
+            "output_names": ["3dpose_out"],
+            "output_size": 1,
+            "post_fn": "lmk_pose"
+        }
+    },
+    {
+        "unique_name": "lmk_bbox_pre",
+        "inputs": [
+            "image",
+            "face_box"
+        ],
+        "outputs": [
+            "lmk_pre_out0",
+            "lmk_pre_out1"
+        ],
+        "method_type": "rect_input",
+        "method_config": 
+        {
+            "in_msg_type": "rect",
+            "model_file_path": "../models/IPCModel.hbm"
+        }
+    },
+    {
+        "unique_name": "lmk_bbox_cnn",
+        "inputs": [
+            "lmk_pre_out0",
+            "lmk_pre_out1"
+        ],
+        "outputs": ["lmk_cnn_out0"],
+        "method_type": "x2_predictor",
+        "method_config": {
+            "core_engine": "dual",
+            "debug": 0,
+            "enable_core_num": 2,
+            "engine_type": "naive",
+            "max_bpu_buffer": 1024,
+            "max_task": 32
+        }
+    },
+    {
+        "unique_name": "lmk_bbox_post",
+        "inputs": ["lmk_cnn_out0"],
+        "outputs": ["lmk_out"],
+        "method_type": "split_sum",
+        "method_config": {
+            "output_names": ["lmk_out"],
+            "output_size": 1,
+            "post_fn": "split_sum"
+        }
+    },
+    {
+        "unique_name" : "face_select",
+        "inputs": [
+            "face_box_list",
+            "face_track_disappear_list",
+            "3dpose_out",
+            "lmk_out"
+        ],
+        "outputs": ["snap_info"],
+        "method_type": "SnapMethod",
+        "method_config": 
+        {
+            "avg_crop_num_per_frame": 2,
+            "begin_post_frame_thr": 500,
+            "max_crop_num_per_frame": 4,
+            "max_tracks": 256,
+            "output_height": 128,
+            "output_width": 128,
+            "resnap_value": 6,
+            "save_original_image_frame": false,
+            "scale_rate": 1.6000000000000001,
+            "select_type": "first_num_best",
+            "smoothing_frame_range": 10,
+            "snaps_per_track": 1,
+            "update_steps": 50
+        }
+    }
+]}

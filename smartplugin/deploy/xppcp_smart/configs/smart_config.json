@@ -1,0 +1,5 @@
+{
+    "xroc_workflow_file": "configs/det_mot.json",
+    "enable_profile": 0,
+    "profile_log_path": "/userdata/log/profile.txt"
+}

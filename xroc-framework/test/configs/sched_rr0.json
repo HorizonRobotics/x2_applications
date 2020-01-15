@@ -1,0 +1,4 @@
+{
+  "thread_policy": "SCHED_RR",
+  "thread_priority": 10
+}

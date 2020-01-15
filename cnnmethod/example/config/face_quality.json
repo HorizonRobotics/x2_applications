@@ -1,0 +1,50 @@
+{
+  "inputs": [
+    "face_box",
+    "pyramid"
+  ],
+  "outputs": [
+    "face_box",
+    "blur",
+    "brightness",
+    "eye_abnormalities",
+    "mouth_abnormal",
+    "left_eye",
+    "right_eye",
+    "left_brow",
+    "right_brow",
+    "forehead",
+    "left_cheek",
+    "right_check",
+    "nose",
+    "mouse",
+    "jaw"
+  ],
+  "workflow": [
+    {
+      "unique_name": "face_quality_example",
+      "method_type": "CNNMethod",
+      "inputs": [
+        "face_box",
+        "pyramid"
+      ],
+      "outputs": [
+        "blur",
+        "brightness",
+        "eye_abnormalities",
+        "mouth_abnormal",
+        "left_eye",
+        "right_eye",
+        "left_brow",
+        "right_brow",
+        "forehead",
+        "left_cheek",
+        "right_check",
+        "nose",
+        "mouse",
+        "jaw"
+      ],
+      "method_config_file": "method_conf/face_quality.json"
+    }
+  ]
+}

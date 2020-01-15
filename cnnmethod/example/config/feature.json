@@ -1,0 +1,21 @@
+{
+  "inputs": [
+    "snap_list"
+  ],
+  "outputs": [
+    "face_feature"
+  ],
+  "workflow": [
+    {
+      "unique_name": "feature_example",
+      "method_type": "CNNMethod",
+      "inputs": [
+        "snap_list"
+      ],
+      "outputs": [
+        "face_feature"
+      ],
+      "method_config_file": "method_conf/feature.json"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "inputs": [
+    "pyramid"
+  ],
+  "outputs": [
+    "face_box"
+  ],
+  "workflow": [
+    {
+      "unique_name": "fasterrcnndet",
+      "method_type": "FasterRCNNMethod",
+      "inputs": [
+        "pyramid"
+      ],
+      "outputs": [
+        "face_box"
+      ],
+      "method_config_file": "method_conf/face_det.json"
+    }
+  ]
+}

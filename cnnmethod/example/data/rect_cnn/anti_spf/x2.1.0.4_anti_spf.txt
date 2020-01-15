@@ -1,0 +1,1 @@
+data/rect_cnn/anti_spf/00000066.jpg 1

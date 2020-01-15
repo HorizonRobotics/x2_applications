@@ -1,0 +1,30 @@
+{
+    "max_running_count": 10000,
+    "inputs": ["test_input"],
+    "outputs": ["test_output"],
+    "workflow": [
+      {
+        "thread_count": 3,
+        "method_type": "Scrambler",
+        "unique_name": "Scrambler_node",
+        "inputs": [
+          "test_input"
+        ],
+        "outputs": [
+          "scrambled_data"],
+        "method_config_file": "null"
+      },
+      {
+        "thread_count": 1,
+        "method_type": "MultiSourceTest",
+        "unique_name": "multisource_node",
+        "inputs": [
+          "scrambled_data"
+        ],
+        "outputs": [
+          "test_output"
+        ],
+        "method_config_file": "null"
+      }
+    ]
+  }

@@ -1,0 +1,30 @@
+.aarch_compile_env: &aarch_compile_env
+  image: hub.hobot.cc/aiot/hbcc/ubuntu16.04:latest
+  tags:
+    - cpu
+
+.compile_aarch64: &compile_aarch64
+  script:
+    - bash
+
+.artifact_upload: &artifact_upload
+  script:
+    - bash
+
+before_script:
+  - env
+  - pwd
+  - chmod +x ./cicd/scripts/*
+
+build-linux-aarch64:
+  <<: *aarch_compile_env
+  <<: *compile_aarch64
+  stage: build
+
+build-linux-aarch64_upload:
+  <<: *aarch_compile_env
+  <<: *artifact_upload
+  stage: deploy
+  only:
+    variables:
+      - $CI_BUILD_TAG =~ /^aarch64-*/

@@ -1,0 +1,5 @@
+{
+  "post_fn" : "split_sum",
+  "output_size" : 1,
+  "output_names": ["lmk_out"]
+}

@@ -1,0 +1,9 @@
+libdir=/tmp/tmp.2FlsWTYiMr/build/output/jsoncpp/lib
+includedir=/tmp/tmp.2FlsWTYiMr/build/output/jsoncpp/include
+
+Name: jsoncpp
+Description: A C++ library for interacting with JSON
+Version: 1.8.4
+URL: https://github.com/open-source-parsers/jsoncpp
+Libs: -L${libdir} -ljsoncpp
+Cflags: -I${includedir}

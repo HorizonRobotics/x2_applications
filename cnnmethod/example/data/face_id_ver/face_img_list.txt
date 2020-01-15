@@ -1,0 +1,1 @@
+./data/face_id_ver/yuv420sp_112x112_python_int8_0_255.nv12

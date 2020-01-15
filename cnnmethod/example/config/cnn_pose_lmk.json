@@ -1,0 +1,27 @@
+{
+  "inputs": [
+    "face_box",
+    "pyramid"
+  ],
+  "outputs": [
+    "lmk",
+    "pose",
+    "pyramid",
+    "face_box"
+  ],
+  "workflow": [
+    {
+      "unique_name": "pose_lmk",
+      "method_type": "CNNMethod",
+      "inputs": [
+        "face_box",
+        "pyramid"
+      ],
+      "outputs": [
+        "lmk",
+        "pose"
+      ],
+      "method_config_file": "method_conf/pose_lmk.json"
+    }
+  ]
+}

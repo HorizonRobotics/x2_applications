@@ -1,0 +1,47 @@
+{
+  "inputs": [
+    "pyramid"
+  ],
+  "outputs": [
+    "cnn_anti_spf_bgr",
+    "face_bbox_list"
+  ],
+  "workflow": [
+    {
+      "unique_name": "fasterrcnndet",
+      "method_type": "FasterRCNNMethod",
+      "inputs": [
+        "pyramid"
+      ],
+      "outputs": [
+        "face_box"
+      ],
+      "method_config_file": "method_conf/face_det.json"
+    },
+    {
+      "thread_count": 1,
+      "method_type": "MOTMethod",
+      "unique_name": "face_mot",
+      "inputs": [
+        "face_box"
+      ],
+      "outputs": [
+        "face_bbox_list",
+        "face_disappeared_track_id_list"
+      ],
+      "method_config_file": "method_conf/iou_method_param.json"
+    },
+    {
+      "method_type": "CNNMethod",
+      "unique_name": "anti_spoofing",
+      "inputs": [
+        "face_bbox_list",
+        "pyramid"
+      ],
+      "outputs": [
+        "cnn_anti_spf_bgr"
+      ],
+      "method_config_file": "method_conf/anti_spf.json"
+    }
+  ]
+}

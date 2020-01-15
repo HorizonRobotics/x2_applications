@@ -1,0 +1,22 @@
+{
+  "in_msg_type": "pyramid_image",
+  "net_info": {
+    "model_name": "faceDet",
+    "model_version": "0.0.18",
+    "model_out_sequence": [
+      {
+        "type": "_"
+      },
+      {
+        "name": "face_box",
+        "type": "bbox"
+      }
+    ],
+    "model_input_width": 960,
+    "model_input_height": 540,
+    "pyramid_layer": 4
+  },
+  "method_outs": ["face_box"],
+  "bpu_config_path": "../configs/bpu_config.json",
+  "model_file_path": "../models/faceDet.hbm"
+}

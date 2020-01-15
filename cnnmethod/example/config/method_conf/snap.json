@@ -1,0 +1,15 @@
+{
+  "select_type": "first_num_best",
+  "scale_rate": 1.6,
+  "output_width": 128,
+  "output_height": 128,
+  "update_steps": 50,
+  "snaps_per_track": 1,
+  "max_tracks": 256,
+  "max_crop_num_per_frame": 4,
+  "smoothing_frame_range": 10,
+  "avg_crop_num_per_frame": 2,
+  "begin_post_frame_thr": 500,
+  "resnap_value": 6,
+  "save_original_image_frame": false
+}

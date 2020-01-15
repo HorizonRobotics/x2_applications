@@ -1,0 +1,31 @@
+{
+  "max_running_count": 10000,
+  "inputs": ["input_test_data"],
+  "outputs": ["output_test_data"],
+  "workflow": [
+    {
+      "thread_count": 3,
+      "method_type": "threadsafeMethod",
+      "unique_name": "threadsafe_test1",
+      "inputs": [
+        "input_test_data"
+      ],
+      "outputs": [
+        "data_ordered"
+      ],
+      "method_config_file": "null"
+    },
+    {
+      "thread_count": 3,
+      "method_type": "passthroughMethod",
+      "unique_name": "passthroughMethod1",
+      "inputs": [
+        "data_ordered"
+      ],
+      "outputs": [
+        "output_test_data"
+      ],
+      "method_config_file": "null"
+    }
+  ]
+}

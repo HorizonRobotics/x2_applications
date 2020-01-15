@@ -1,0 +1,67 @@
+{
+	"inputs": ["image"],
+	"name": "main",
+	"outputs": [
+		"vehicle_box",
+		"pedestrian_box"
+	],
+	"workflow": [
+	{
+        "unique_name": "det_vehicle_pre",
+        "method_type": "vehicle_PreProcess",
+        "inputs": ["image"],
+        "outputs": [
+			"det_vehicle_pre_out0",
+			"det_vehicle_pre_out1"
+		],
+		"method_config_file": 
+		{
+			"threshold": 80
+		}
+	},
+	{
+        "unique_name": "det_vehicle_cnn",
+        "method_type": "CNNMethod",
+        "inputs": [
+			"det_vehicle_pre_out0",
+			"det_vehicle_pre_out1"
+		],
+		"outputs": [
+			"det_vehicle_cnn_out0"
+		]
+	},
+	{
+        "unique_name": "det_vehicle_post",
+        "method_type": "vehicle_PostProcess",
+		"inputs": ["det_vehicle_cnn_out0"],
+		"outputs": ["vehicle_box"]
+	},
+	{		
+        "unique_name": "det_pedestrian_pre",
+        "method_type": "pedestrian_PreProcess",
+        "inputs": ["vehicle_box"],
+        "outputs": [
+			"det_pedestrian_pre_out0",
+			"det_pedestrian_pre_out1"
+		],
+		"method_config_file": 
+		{
+			"threshold": 80
+		}
+	},
+	{		
+        "unique_name": "det_pedestrian_cnn",
+        "method_type": "CNNMethod",
+		"inputs": [
+			"det_pedestrian_pre_out0",
+			"det_pedestrian_pre_out1"
+		],
+		"outputs": ["det_pedestrian_cnn_out0"]
+	},
+	{		
+        "unique_name": "det_pedestrian_post",
+        "method_type": "pedestrian_PostProcess",
+		"inputs": ["det_pedestrian_cnn_out0"],
+		"outputs": ["pedestrian_box"]
+    }
+]}

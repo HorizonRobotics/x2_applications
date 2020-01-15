@@ -1,0 +1,15 @@
+{
+    "linters": {
+        "sample": {
+            "type": "cpplint",
+            "severity": {
+                "build/c++11": "disabled",
+                "build/include_order": "disabled"
+            },
+	    "flags":["--root=include"],
+            "include": ["(\\.h$)", "(\\.cc$)", "(\\.cpp$)"],
+            "exclude": ["(include/hobot/thread)","(src/thread)","(third_party/gtest/include)"]
+        }
+    }
+
+}

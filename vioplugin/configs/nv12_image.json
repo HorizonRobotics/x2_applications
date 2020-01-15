@@ -1,0 +1,15 @@
+{
+  "cam_type": "mono",
+  "data_source": "nv12_image_list",
+  "max_vio_buffer": 3,
+  "file_path": "name.list",
+  "pad_width": 1920,
+  "pad_height": 1080,
+  "vio_cfg_file": {
+    "ipc_camera": "configs/vio/hb_vio.json",
+    "panel_camera": "configs/vio/panel_camera.json",
+    "jpeg_image_list": "configs/vio/vio_onsemi0230_fb.json",
+    "nv12_image_list": "configs/vio/vio_onsemi0230_fb.json",
+    "image": "configs/vio/vio_onsemi0230_fb.json"
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "in_msg_type": "pyramid_image",
+  "net_info": {
+    "model_name": "faceMultitask",
+    "model_version": "v0.1.2",
+    "model_out_sequence": [
+      {
+        "type": "_"
+      },
+      {
+        "name": "face_box",
+        "type": "bbox"
+      },
+      {
+        "name": "lmks2_label",
+        "type": "lmks2_label",
+        "box_name": "face_box"
+      },
+      {
+        "name": "lmks2_offset",
+        "type": "lmks2_offset"
+      },
+      {
+        "name": "face_lmks1",
+        "type": "lmks1",
+        "box_name": "face_box"
+      },
+      {
+        "name": "pose",
+        "type": "3d_pose",
+        "box_name": "face_box"
+      }
+    ],
+    "model_input_width": 640,
+    "model_input_height": 360,
+    "pyramid_layer": 6,
+    "lmk_feat_width": 8,
+    "lmk_feat_height": 8,
+    "lmk_points_number": 5,
+    "lmk_pos_distance": 12,
+    "lmk_feat_stride": 16,
+    "3d_pose_number": 3
+  },
+  "method_outs": ["face_box", "landmark", "pose"],
+  "bpu_config_path": "../configs/bpu_config.json",
+  "model_file_path": "../models/faceMultitask.hbm"
+}

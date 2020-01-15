@@ -1,0 +1,54 @@
+{
+  "max_running_count": 10000,
+  "inputs": ["face_head_box"],
+  "outputs": ["face_head_box_filter2"],
+  "optional":
+  {
+    "sched_upper":
+    {
+      "policy": "SCHED_RR",
+      "priority": 30
+    },
+    "sched_down":
+    {
+      "policy": "SCHED_RR",
+      "priority": 30
+    }
+  },
+  "workflow": [
+    {
+      "thread_list": [0],
+      "thread_priority":
+      {
+        "policy": "SCHED_RR",
+        "priority": 10
+      },
+      "method_type": "BBoxFilter",
+      "unique_name": "BBoxFilter_1",
+      "inputs": [
+        "face_head_box"
+      ],
+      "outputs": [
+        "face_head_box_filter"
+      ],
+      "method_config_file": "sched_rr0.json"
+    },
+    {
+      "thread_list": [1, 2],
+      "thread_priority":
+      {
+        "policy": "SCHED_RR",
+        "priority": 20
+      },
+      "method_type": "BBoxFilter",
+      "unique_name": "BBoxFilter_2",
+      "inputs": [
+        "face_head_box_filter"
+      ],
+      "outputs": [
+        "face_head_box_filter2"
+      ],
+      "method_config_file": "sched_rr1.json"
+    }
+  ]
+}

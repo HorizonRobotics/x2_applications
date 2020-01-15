@@ -1,0 +1,33 @@
+{
+  "inputs": [
+    "img_frame",
+    "box_list",
+    "select_score_list",
+    "disappeared_track_id_list",
+    "userdata_list1",
+    "userdata_list2"
+  ],
+  "outputs": [
+    "snap_list",
+    "snap_state"
+  ],
+  "workflow": [
+    {
+      "unique_name": "snapshot_example",
+      "method_type": "SnapShotMethod",
+      "inputs": [
+        "img_frame",
+        "box_list",
+        "select_score_list",
+        "disappeared_track_id_list",
+        "userdata_list1",
+        "userdata_list2"
+      ],
+      "outputs": [
+        "snap_list",
+        "snap_state"
+      ],
+      "method_config_file": "method_param.json"
+    }
+  ]
+}

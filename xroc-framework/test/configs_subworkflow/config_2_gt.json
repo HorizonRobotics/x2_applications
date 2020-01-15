@@ -1,0 +1,341 @@
+{
+        "inputs" : 
+        [
+            "image"
+        ],
+        "name" : "main",
+        "outputs" : 
+        [
+            "vehicle_box",
+            "pedestrian_box"
+        ],
+        "workflow" : 
+        [
+            {
+                "inputs" : 
+                [
+                    "image"
+                ],
+                "method_config_file" : 
+                {
+                    "threshold" : 80
+                },
+                "method_type" : "vehicle_PreProcess",
+                "outputs" : 
+                [
+                    "det_vehicle_pre_out0",
+                    "det_vehicle_pre_out1"
+                ],
+                "unique_name" : "det_vehicle_pre"
+            },
+            {
+                "inputs" : 
+                [
+                    "det_vehicle_pre_out0",
+                    "det_vehicle_pre_out1"
+                ],
+                "method_type" : "CNNMethod",
+                "outputs" : 
+                [
+                    "det_vehicle_cnn_out0"
+                ],
+                "unique_name" : "det_vehicle_cnn"
+            },
+            {
+                "inputs" : 
+                [
+                    "det_vehicle_cnn_out0"
+                ],
+                "method_type" : "vehicle_PostProcess",
+                "outputs" : 
+                [
+                    "det_vehicle_post_out0"
+                ],
+                "unique_name" : "det_vehicle_post"
+            },
+            {
+                "inputs" : 
+                [
+                    "image",
+                    "det_vehicle_post_out0"
+                ],
+                "method_config" : 
+                {
+                    "threshold" : 80
+                },
+                "method_type" : "vehicle_PreProcess",
+                "outputs" : 
+                [
+                    "det_vehicle_ebed_cnn_pre_out0"
+                ],
+                "unique_name" : "det_vehicle_ebed_cnn_pre"
+            },
+            {
+                "inputs" : 
+                [
+                    "det_vehicle_ebed_cnn_pre_out0"
+                ],
+                "method_config" : 
+                {
+                    "core_engine" : "dual",
+                    "debug" : 0,
+                    "enable_core_num" : 2,
+                    "engine_type" : "naive",
+                    "max_bpu_buffer" : 1024,
+                    "max_task" : 32
+                },
+                "method_type" : "CNNMethod",
+                "outputs" : 
+                [
+                    "det_vehicle_ebed_cnn_cnn_out0"
+                ],
+                "unique_name" : "det_vehicle_ebed_cnn_cnn"
+            },
+            {
+                "inputs" : 
+                [
+                    "det_vehicle_ebed_cnn_cnn_out0"
+                ],
+                "method_config" : 
+                {
+                    "bpu_config" : 
+                    {
+                        "core_engine" : "dual",
+                        "debug" : 0,
+                        "enable_core_num" : 2,
+                        "engine_type" : "naive",
+                        "max_bpu_buffer" : 1024,
+                        "max_task" : 32
+                    },
+                    "in_msg_type" : "pyramid_image",
+                    "method_outs" : 
+                    [
+                        "face_box",
+                        "head_box",
+                        "kps"
+                    ],
+                    "model_file_path" : "../models/multitask.hbm",
+                    "net_info" : 
+                    {
+                        "kps_feat_height" : 16,
+                        "kps_feat_width" : 16,
+                        "kps_points_number" : 17,
+                        "kps_pos_distance" : 0.09765625,
+                        "model_input_height" : 540,
+                        "model_input_width" : 960,
+                        "model_name" : "multitask",
+                        "model_out_sequence" : 
+                        [
+                            {
+                                "type" : "_"
+                            },
+                            {
+                                "name" : "body_box",
+                                "type" : "bbox"
+                            },
+                            {
+                                "type" : "_"
+                            },
+                            {
+                                "name" : "head_box",
+                                "type" : "bbox"
+                            },
+                            {
+                                "type" : "_"
+                            },
+                            {
+                                "name" : "face_box",
+                                "type" : "bbox"
+                            },
+                            {
+                                "box_name" : "body_box",
+                                "name" : "reid",
+                                "type" : "reid"
+                            },
+                            {
+                                "box_name" : "body_box",
+                                "name" : "kps",
+                                "type" : "kps"
+                            },
+                            {
+                                "box_name" : "body_box",
+                                "name" : "mask",
+                                "type" : "mask"
+                            }
+                        ],
+                        "model_version" : "0.0.18",
+                        "pyramid_layer" : 4
+                    }
+                },
+                "method_type" : "vehicle_PostProcess",
+                "outputs" : 
+                [
+                    "vehicle_box"
+                ],
+                "unique_name" : "det_vehicle_ebed_cnn_post"
+            },
+            {
+                "inputs" : 
+                [
+                    "vehicle_box"
+                ],
+                "method_config_file" : 
+                {
+                    "threshold" : 80
+                },
+                "method_type" : "pedestrian_PreProcess",
+                "outputs" : 
+                [
+                    "det_pedestrian_pre_out0",
+                    "det_pedestrian_pre_out1"
+                ],
+                "unique_name" : "det_pedestrian_pre"
+            },
+            {
+                "inputs" : 
+                [
+                    "det_pedestrian_pre_out0",
+                    "det_pedestrian_pre_out1"
+                ],
+                "method_type" : "CNNMethod",
+                "outputs" : 
+                [
+                    "det_pedestrian_cnn_out0"
+                ],
+                "unique_name" : "det_pedestrian_cnn"
+            },
+            {
+                "inputs" : 
+                [
+                    "det_pedestrian_cnn_out0"
+                ],
+                "method_type" : "pedestrian_PostProcess",
+                "outputs" : 
+                [
+                    "det_pedestrian_post_out0"
+                ],
+                "unique_name" : "det_pedestrian_post"
+            },
+            {
+                "inputs" : 
+                [
+                    "vehicle_box",
+                    "det_pedestrian_post_out0"
+                ],
+                "method_config" : 
+                {
+                    "threshold" : 80
+                },
+                "method_type" : "pedestrian_PreProcess",
+                "outputs" : 
+                [
+                    "det_pedestrian_ebed_cnn_pre_out0"
+                ],
+                "unique_name" : "det_pedestrian_ebed_cnn_pre"
+            },
+            {
+                "inputs" : 
+                [
+                    "det_pedestrian_ebed_cnn_pre_out0"
+                ],
+                "method_config" : 
+                {
+                    "core_engine" : "dual",
+                    "debug" : 0,
+                    "enable_core_num" : 2,
+                    "engine_type" : "naive",
+                    "max_bpu_buffer" : 1024,
+                    "max_task" : 32
+                },
+                "method_type" : "CNNMethod",
+                "outputs" : 
+                [
+                    "det_pedestrian_ebed_cnn_cnn_out0"
+                ],
+                "unique_name" : "det_pedestrian_ebed_cnn_cnn"
+            },
+            {
+                "inputs" : 
+                [
+                    "det_pedestrian_ebed_cnn_cnn_out0"
+                ],
+                "method_config" : 
+                {
+                    "bpu_config" : 
+                    {
+                        "core_engine" : "dual",
+                        "debug" : 0,
+                        "enable_core_num" : 2,
+                        "engine_type" : "naive",
+                        "max_bpu_buffer" : 1024,
+                        "max_task" : 32
+                    },
+                    "in_msg_type" : "pyramid_image",
+                    "method_outs" : 
+                    [
+                        "face_box",
+                        "head_box",
+                        "kps"
+                    ],
+                    "model_file_path" : "../models/multitask.hbm",
+                    "net_info" : 
+                    {
+                        "kps_feat_height" : 16,
+                        "kps_feat_width" : 16,
+                        "kps_points_number" : 17,
+                        "kps_pos_distance" : 0.09765625,
+                        "model_input_height" : 540,
+                        "model_input_width" : 960,
+                        "model_name" : "multitask",
+                        "model_out_sequence" : 
+                        [
+                            {
+                                "type" : "_"
+                            },
+                            {
+                                "name" : "body_box",
+                                "type" : "bbox"
+                            },
+                            {
+                                "type" : "_"
+                            },
+                            {
+                                "name" : "head_box",
+                                "type" : "bbox"
+                            },
+                            {
+                                "type" : "_"
+                            },
+                            {
+                                "name" : "face_box",
+                                "type" : "bbox"
+                            },
+                            {
+                                "box_name" : "body_box",
+                                "name" : "reid",
+                                "type" : "reid"
+                            },
+                            {
+                                "box_name" : "body_box",
+                                "name" : "kps",
+                                "type" : "kps"
+                            },
+                            {
+                                "box_name" : "body_box",
+                                "name" : "mask",
+                                "type" : "mask"
+                            }
+                        ],
+                        "model_version" : "0.0.18",
+                        "pyramid_layer" : 4
+                    }
+                },
+                "method_type" : "pedestrian_PostProcess",
+                "outputs" : 
+                [
+                    "pedestrian_box"
+                ],
+                "unique_name" : "det_pedestrian_ebed_cnn_post"
+            }
+        ]
+    }

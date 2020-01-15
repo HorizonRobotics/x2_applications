@@ -1,0 +1,134 @@
+{
+	"version": "1.1",
+	"templates": [
+	  {
+		"type": "template",
+		"template_name": "bbox_cnn.tpl",
+		"parameters": [
+		  "name",
+		  "pre_method",
+		  "predictor_method",
+		  "post_method",
+		  "image",
+		  "bbox",
+		  "out",
+		  "pre_cnn_config",
+		  "post_cnn_config"
+		],
+		"template": {
+		  "name": "${name}",
+		  "type": "workflow",
+		  "inputs": ["${image}", "${bbox}"],
+		  "outputs": ["${out}"],
+		  "workflow": [
+			{
+			  "type": "node",
+			  "method_type": "${pre_method}",
+			  "unique_name": "bbox_pre",
+			  "method_config": "${pre_cnn_config}",
+			  "inputs": ["image", "bbox"],
+			  "outputs": [
+				"pre_out0",
+				"pre_out1"
+			  ]
+			},
+			{
+			  "type": "node",
+			  "method_type": "${predictor_method}",
+			  "unique_name": "bbox_cnn",
+			  "inputs": [
+				"pre_out0",
+				"pre_out1"
+			  ],
+			  "outputs": [
+				"cnn_out0"
+			  ],
+			  "method_config":"@include: ./bpu_config.json"
+			},
+		    {
+			  "type": "node",
+			  "method_type": "${post_method}",
+			  "unique_name": "bbox_post",
+			  "inputs": ["cnn_out0"],
+			  "outputs": ["out"],
+			  "method_config":"${post_cnn_config}"
+			}
+		]}
+		}
+	],
+	"workflows": [{
+	  "name": "main",
+	  "type": "workflow",
+	  "inputs": ["image"],
+	  "outputs": ["face_box_list", "snap_info"],
+	  "workflow": [
+	  {
+		"type": "node",
+		"unique_name": "multi_task",
+		"method_type": "FasterrcnnMethod",
+		"inputs": ["image"],
+		"outputs": ["face_box",
+					"head_box",
+					"kps"
+					],
+		"thread_list": [0, 1],
+		"method_config": "@include: ./multitask_config.json"
+	  },
+	  {
+		"type": "node",
+		"unique_name": "face_track",
+		"method_type": "MOTMethod",
+		"inputs": ["face_box"],
+		"outputs": ["face_box_list",
+					"face_track_disappear_list"
+					],
+		"method_config": "@include: ./facetrack_config.json"
+	  },
+	  {
+		"type": "template_ref",
+		"template_name": "bbox_cnn.tpl",
+		"parameters": {
+		  "name": "3dpose",
+		  "pre_method": "rect_input",
+		  "predictor_method": "x2_predictor",
+		  "post_method": "regression_postprocess",
+		  "image": "image",
+		  "bbox": "face_box",
+		  "out": "3dpose_out",
+		  "pre_cnn_config": "@include: ./precnn_config.json",
+		  "post_cnn_config": "@include: ./3dposepost_config.json"
+		}
+	  },
+	  {
+		"type": "template_ref",
+		"template_name": "bbox_cnn.tpl",
+		"parameters": {
+		  "name": "lmk",
+		  "pre_method": "rect_input",
+		  "predictor_method":"x2_predictor",
+		  "post_method": "split_sum",
+		  "image": "image",
+		  "bbox": "face_box",
+		  "out": "lmk_out",
+		  "pre_cnn_config": "@include: ./precnn_config.json",
+		  "post_cnn_config": "@include: ./lmkpost_config.json"
+	    }
+	  },
+	  {
+	    "type": "node",
+		"unique_name": "face_select",
+		"method_type": "SnapMethod",
+		"inputs": [
+		  "face_box_list",
+		  "face_track_disappear_list",
+		  "3dpose_out",
+		  "lmk_out"
+		],
+		"outputs": [
+		  "snap_info"
+		],
+		"method_config": "@include: ./snap_config.json"
+	  }
+	]
+  }]
+}

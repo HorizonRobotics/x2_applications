@@ -1,0 +1,56 @@
+{
+  "max_running_count": 5000,
+  "inputs": [
+    "input_in"
+  ],
+  "outputs": [
+    "output_out"
+  ],
+  "workflow": [
+    {
+      "thread_count": 3,
+      "method_type": "TestMethod",
+      "unique_name": "method_1",
+      "inputs": [
+        "input_in"
+      ],
+      "outputs": [
+        "tmp_data1",
+        "valid1",
+        "valid2",
+        "output_data1"
+      ],
+      "method_config_file": "null"
+    },
+    {
+      "thread_count": 3,
+      "method_type": "TestMethod",
+      "unique_name": "method_2",
+      "inputs": [
+        "output_data1"
+      ],
+      "outputs": [
+        "tmp_data2",
+        "valid3",
+		"valid4",
+		"output_data2"
+      ],
+      "method_config_file": "null"
+    },
+	{
+      "thread_count": 3,
+      "method_type": "TestMethod",
+      "unique_name": "method_3",
+      "inputs": [
+        "output_data2"
+      ],
+      "outputs": [
+        "tmp_data3",
+        "valid5",
+		"valid6",
+		"output_out"
+      ],
+      "method_config_file": "null"
+    }
+  ]
+}

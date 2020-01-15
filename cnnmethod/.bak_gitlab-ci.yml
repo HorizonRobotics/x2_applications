@@ -1,0 +1,12 @@
+image: hub.hobot.cc/aiot/hbcc/ubuntu16.04:latest
+
+stages:
+  - test
+
+build_job:
+  stage: test
+  script: sh cicd/build_linux.sh
+  tags:
+    - cpu
+  only:
+    - x2/dev

@@ -1,0 +1,4 @@
+{
+    "in_msg_type" : "rect",
+    "model_file_path": "../models/IPCModel.hbm"
+  }

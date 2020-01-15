@@ -1,0 +1,29 @@
+{
+	"config_number":2,
+	"board_name":"96board",
+	"config_0":{
+		"port_number":1,
+			"port0":{
+			"i2c_bus":0,
+			"isp_addr":"0x1b",
+			"sensor_addr":"0x10",
+			"sensor_name":"onsemi0230",
+			"power_mode":1,
+			"isp_reset_pin":77,
+			"config_path":"/etc/cam/hb_mipi_xc9080_ar0230.json"
+		}
+	},
+	"config_1":{
+		"port_number":1,
+		"port0":{
+			"i2c_bus":0,
+			"isp_addr":"0x1b",
+			"isp_reset_pin":77,
+			"sensor_name":"onsemi_dual",
+			"power_mode":1,
+			"sensor0_addr":"0x10",
+			"sensor1_addr":"0x18",
+			"config_path":"/etc/cam/hb_mipi_xc9080_dual.json"
+		}
+	}
+}

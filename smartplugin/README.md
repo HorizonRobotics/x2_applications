@@ -9,12 +9,7 @@ Smartplugin监听viomessage，调用xRoc通用sdk接口得到智能化结果，�
 # Sample程序
 ## 功能描述
 smartplugin默认功能为一个人脸抓拍识别workflow，包含人脸检测模块、跟踪模块、过滤模块、人脸打分模块、优选模块、提特征模块等。    
-![人脸抓拍识别workflow](./docs/images/face_snap_feature.png)
-
-## Build
-> mkdir build & cd build    
-> cmake ..    
-> make VERBOSE=1    
+![人脸抓拍识别workflow](./docs/images/face_snap_feature.png)  
 
 ## Deploy
 部署包为deploy目录下xppcp_smart，把该文件夹打包copy到X2平台任意目录，执行`sh xpp_start.sh`即可。

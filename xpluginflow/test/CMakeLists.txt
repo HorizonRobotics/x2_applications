@@ -51,4 +51,9 @@ endif ()
 
 # hobot_util.cmake已经设置了在build/bin中生成可执行文件，默认应该在test目录里生成
 add_executable(unit_test ${SOURCE_FILES})
-target_link_libraries(unit_test ${CMAKE_PROJECT_NAME} ${BASE_LIBRARIES})
+target_link_libraries(unit_test xpluginflow ${BASE_LIBRARIES})
+if (${CMAKE_BUILD_TYPE} STREQUAL "Release")
+    target_link_libraries(unit_test xpluginflow ${BASE_LIBRARIES})
+else ()
+    target_link_libraries(unit_test xpluginflowd ${BASE_LIBRARIES})
+endif ()

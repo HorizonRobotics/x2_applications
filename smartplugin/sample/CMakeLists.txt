@@ -19,4 +19,4 @@ endif ()
 
 # hobot_util.cmake已经设置了在build/bin中生成可执行文件，默认应该在test目录里生成
 add_executable(xppcp_smart ${SOURCE_FILES})
-target_link_libraries(xppcp_smart smartplugin vioplugin hbipcplugin xpluginflow ${BASE_LIBRARIES})
+target_link_libraries(xppcp_smart ${PROJECT_NAME} ${BASE_LIBRARIES})

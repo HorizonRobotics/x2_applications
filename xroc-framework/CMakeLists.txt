@@ -1,23 +1,5 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.15)
 project(xroc-framework)
-
-option(RELEASE_LIB "build version of release" ON)
-
-if (${RELEASE_LIB})
-    set(CMAKE_BUILD_TYPE Release)
-else ()
-    set(CMAKE_BUILD_TYPE Debug)
-endif ()
-
-set(CMAKE_C_COMPILER aarch64-linux-gnu-gcc)
-set(CMAKE_CXX_COMPILER aarch64-linux-gnu-g++)
-add_definitions(-DHR_POSIX)
-add_definitions(-DHR_LINUX)
-add_definitions(-DX2)
-list(APPEND CMAKE_C_FLAGS " -march=armv8-a -mcpu=cortex-a53 ")
-message("CMAKE_C_FLAGS: ${CMAKE_C_FLAGS}" )
-
-set(CMAKE_CXX_STANDARD 11)
 
 if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
     message("building release")
@@ -37,18 +19,6 @@ include_directories(
         include/common
         include/log
         include/timer
-        ${PROJECT_SOURCE_DIR}/deps/hobotlog/include
-        ${PROJECT_SOURCE_DIR}/deps/vision_type/include
-        ${PROJECT_SOURCE_DIR}/deps/jsoncpp/include
-        ${PROJECT_SOURCE_DIR}/deps/gtest/include
-        ${PROJECT_SOURCE_DIR}/deps/opencv/include
-)
-link_directories(
-    ${PROJECT_SOURCE_DIR}/deps/hobotlog/lib
-    ${PROJECT_SOURCE_DIR}/deps/vision_type/lib
-    ${PROJECT_SOURCE_DIR}/deps/jsoncpp/lib
-    ${PROJECT_SOURCE_DIR}/deps/gtest/lib
-    ${PROJECT_SOURCE_DIR}/deps/opencv/lib
 )
 
 message("add src files ...")
@@ -76,7 +46,7 @@ add_subdirectory(example/bbox_filter)
 add_subdirectory(test)
 
 
-set(OUTPUT_ROOT ${CMAKE_SOURCE_DIR}/deps/)
+#set(OUTPUT_ROOT ${CMAKE_SOURCE_DIR}/deps/)
 set(MY_OUTPUT_ROOT ${OUTPUT_ROOT}/${PROJECT_NAME})
 
 install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/hobotxsdk

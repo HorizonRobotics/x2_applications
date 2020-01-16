@@ -25,4 +25,4 @@ set(SOURCE_FILES
         )
 # 添加依赖
 add_executable(hbipc_sample ${SOURCE_FILES})
-target_link_libraries(hbipc_sample ${CMAKE_PROJECT_NAME} ${BASE_LIBRARIES})
+target_link_libraries(hbipc_sample hbipcplugin ${BASE_LIBRARIES})

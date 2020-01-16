@@ -16,8 +16,8 @@ target_link_libraries(bbox_filter -Wl,--whole-archive xroc-framework -Wl,--no-wh
 add_executable(bbox_filter_example src/bbox_filter_main.cpp)
 target_link_libraries(bbox_filter_example bbox_filter ${BASE_LIBRARIES})
 
-add_executable(c_bbox_filter_example src/c_bbox_filter_main.c)
-target_link_libraries(c_bbox_filter_example bbox_filter ${BASE_LIBRARIES})
+#add_executable(c_bbox_filter_example src/c_bbox_filter_main.c)
+#target_link_libraries(c_bbox_filter_example bbox_filter ${BASE_LIBRARIES})
 
 add_executable(profiler_test src/profiler_test.cpp)
 target_link_libraries(profiler_test bbox_filter ${BASE_LIBRARIES})

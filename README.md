@@ -43,9 +43,7 @@
 # 工程组织
 ## 目录结构
 ```
-.
 ├── cnnmethod
-│   ├── deps -> ../external/
 │   ├── example
 │   ├── include
 │   ├── model
@@ -55,13 +53,8 @@
 │   └── images
 ├── external
 │   ├── bpu_predict
-│   ├── CNNMethod
-│   ├── FaceSnapFilterMethod
-│   ├── FasterRCNNMethod
-│   ├── GradingMethod
 │   ├── gtest
 │   ├── hbipc
-│   ├── hbipcplugin
 │   ├── hobotlog
 │   ├── hobotsdk
 │   ├── ipc_tracking
@@ -71,13 +64,8 @@
 │   ├── MOTMethod
 │   ├── opencv
 │   ├── protobuf
-│   ├── SnapShotMethod
-│   ├── vioplugin
 │   ├── vision_type
 │   ├── x2_prebuilt
-│   ├── xpluginflow
-│   ├── xpluginflow_msgtype
-│   ├── xroc-framework
 │   └── xroc-imagetools
 ├── facesnapfiltermethod
 │   ├── cmake
@@ -88,7 +76,6 @@
 │   └── test
 ├── fasterrcnnmethod
 │   ├── configs
-│   ├── deps -> ../external/
 │   ├── example
 │   ├── include
 │   ├── output
@@ -96,26 +83,17 @@
 │   └── test
 ├── GradingMethod
 │   ├── config
-│   ├── deps -> ../external/
 │   ├── include
 │   ├── src
 │   └── test
 ├── hbipcplugin
-│   ├── cicd
-│   ├── cmake
 │   ├── config
-│   ├── deps -> ../external/
-│   ├── gradle
 │   ├── include
-│   ├── output
 │   ├── sample
-│   ├── scm
-│   ├── scripts
 │   ├── src
 │   └── test
 ├── smartplugin
 │   ├── deploy
-│   ├── deps -> ../external/
 │   ├── docs
 │   ├── include
 │   ├── models
@@ -124,32 +102,27 @@
 │   └── test
 ├── SnapshotMethod
 │   ├── config
-│   ├── deps -> ../external/
 │   ├── include
 │   ├── src
 │   └── test
 ├── vioplugin
 │   ├── configs
-│   ├── deps -> ../external/
 │   ├── include
 │   ├── src
 │   └── test
 ├── xpluginflow
-│   ├── deps -> ../external/
 │   ├── doc
 │   ├── include
 │   ├── sample
 │   ├── src
 │   └── test
 ├── xpluginflow_msgtype
-│   ├── deps -> ../external/
 │   ├── doc
 │   ├── include
 │   ├── src
 │   └── test
 └── xroc-framework
     ├── config
-    ├── deps -> ../external/
     ├── doc
     ├── example
     ├── include
@@ -159,9 +132,7 @@
     └── tutorials
 ```
 ## external
-依赖库安装目录，主要有两种来源：  
-1）预编译的库，相关源码暂未开源或公共第三方库， 比如 bpu_predict、hbipc、libyuv、opencv等;  
-2）本地编译的库，相关源码开源给客户，如Smartplugin、FasterrcnnMethod、CNNMethod等;  
+依赖库安装目录，其中包含相关源码暂未开源给用户或公共第三方库， 比如 bpu_predict、hbipc、libyuv、opencv等;   
 
 #### 预编译库
 * jsoncpp：第三方开源库，用于json解析;
@@ -174,11 +145,6 @@
 * x2_prebuilt： x2平台底层系统库或者hbdk基础库等;
 * bpu_predict：地平线bpu预测库;
 * hbipc: CP-AP传输基础库;
-* xpluginflow: 消息订阅与分发的编程框架，每个基础组件以插件（plugin）的形式管理;
-* xpluginflow_msgtype：定义了XPP基础消息类型;
-* vioplugin： 基于xpluginflow封装的用于vio管理的插件;
-* hbipcplugin：基于xpluginflow封装的用于AP-CP通信的插件;
-* xroc-framework： 一套基于数据流的编程框架;
 * hobotsdk：另一种基于数据流的编程框架;
 * ipc_tracking:基于IOU的多目标跟踪（MOT）策略库;
 * MOTMethod：基于XRoc-framework封装的多目标跟踪（MOT）方法模块;
@@ -186,13 +152,18 @@
 * xroc-imagetools：对常用图像处理的封装;
 
 ## 开源库
+* xpluginflow: 消息订阅与分发的编程框架，每个基础组件以插件（plugin）的形式管理;  
+* xpluginflow_msgtype：定义了XPP基础消息类型;   
+* vioplugin： 基于xpluginflow封装的用于vio管理的插件;   
+* hbipcplugin：基于xpluginflow封装的用于AP-CP通信的插件;   
+* xroc-framework： 一套基于数据流的编程框架;   
 * fasterrcnnMethod: 基于地平线bpu的Fasterrcnn模型处理模块;
 * CNNMethod: 基于地平线bpu常用cnn模型处理模块;
 * facesnapfiltermethod: 人脸过滤策略模块;
 * GradingMethod: 人脸综合打分模块，作为优选模块（Snapshotmethod）输入，是优选过程的重要参考;
 * Snapshotmethod: 人脸优选模块。
 * SmartPlugin: 基于xpluginflow的智能处理插件，监听vioplugin输出信息;默认实现是基于XRoc-framework面向workflow的通用接口实现了单workflow的AI应用运行框架;  
-***基于该工程构建solution的入口在smartplugin，main函数在smartplugin/sample/smart_main.cpp***
+***基于该工程构建solution的入口main函数在smartplugin/sample/smart_main.cpp***
 
 # 构建Solution
 1. **适配vio**  
@@ -212,15 +183,10 @@
 # BUILD
 ## 开源repo的编译方式
 > mkdir build & cd build  
-> cmake ..  
-> make  
-> make install   
+> sh ../build.sh      
 
-最终会install到 external对应目录。
+编译完成的库在build/lib, main程序为bin/xppcp_smart。
 ## 基础库重新编译之后，依赖于该基础库的repo也要重新编译
-比如
-* 如果xroc-framework重新编译， 所有method（如Fasterrcnnmethod、cnnmethod、GradingMethod等等）、SmartPlugin都需要重新编译一下;
-* 如果xpluginflow、或者xpluginflow_msgtype重新编译，所有plugin(vioplugin、smartplugin、hbipcplugin等)都需要重新编译。
 
 # Deploy
 部署包为smartplugin/deploy/下的xppcp_smart，完成vio适配后，将其copy到设备上运行`sh xpp_start.sh`就可以执行。

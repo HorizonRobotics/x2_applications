@@ -24,5 +24,5 @@ set(BASE_LIBRARIES ${BASE_LIBRARIES} hobotlog vision_type_util jsoncpp ${ARCH_LI
 
 # hobot_util.cmake已经设置了在build/bin中生成可执行文件，默认应该在test目录里生成
 add_executable(vioplugin_test ${SOURCE_FILES})
-target_link_libraries(vioplugin_test ${CMAKE_PROJECT_NAME} ${BASE_LIBRARIES} ${BASE_DEPS})
+target_link_libraries(vioplugin_test ${PROJECT_NAME} ${BASE_LIBRARIES} ${BASE_DEPS})
 #target_link_libraries(vioplugin_test dl pthread)

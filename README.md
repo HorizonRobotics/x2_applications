@@ -2,8 +2,8 @@
 
 - [综述](#综述)
     - [总体架构](#总体架构)
-            - [XPP（X2 prototype platform）:](#xppx2-prototype-platform)
-            - [XRoc-framework](#xroc-framework)
+        - [XPP（X2 prototype platform）:](#xppx2-prototype-platform)
+        - [XRoc-framework](#xroc-framework)
 - [工程组织](#工程组织)
     - [目录结构](#目录结构)
     - [external](#external)
@@ -19,12 +19,12 @@
 # 综述
 该repo可用于构建基于地平线BPU的solution方案。
 ##  总体架构
-#### XPP（X2 prototype platform）:
+### XPP（X2 prototype platform）:
 即X2原型开发平台，目标是通过解耦智能化与非智能化模块， 并将相对稳定的非智能化模块（输入vio、输出hbipc、展示端等）沉淀为一系列标准组件、工具等，使得算法或者算法策略同学只需专注于算法模块开发，就可以快速完成AI应用的部署验证。原型平台选择了96board作为基础开发调试平台，但同时支持96board开发完成的智能化应用可以快速迁移至其他基于X2 BPU的终端设备中。   
 ***该repo为XPP CP侧工程，不包含展示端等AP侧应用*** 
 > CP: Co-Processor, 包含AI加速芯片BPU等;  
 > AP: Application Processor, 应用处理器，主要用于视频编解码、图像处理等。  
-#### XRoc-framework
+### XRoc-framework
 一种基于数据流的SDK编程框架：  
 1）可以通过JSON配置构建workflow，workflow是一个有向拓扑图，图中每个节点（Node）管理了一个或多个同类型method的实例；  
 2）method表示一种能力，通常是某类模型能力（人脸检测、人脸Pose等）或者算法策略（过滤策略、融合策略、优选策略等）;   

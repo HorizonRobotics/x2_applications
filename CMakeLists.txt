@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.8)
 # 项目名称
 project(xpp_sample)
+
+option(PARENT_BUILD "build subdirectory from here" ON)
 option(RELEASE_LIB "build version of release" ON)
 
 add_definitions(-DHR_POSIX)

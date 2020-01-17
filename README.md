@@ -11,6 +11,7 @@
     - [开源库](#开源库)
 - [构建Solution](#构建solution)
 - [BUILD](#build)
+    - [安装交叉编译工具链](#安装交叉编译工具链)
     - [开源repo的编译方式](#开源repo的编译方式)
     - [基础库重新编译之后，依赖于该基础库的repo也要重新编译](#基础库重新编译之后依赖于该基础库的repo也要重新编译)
 - [Deploy](#deploy)
@@ -181,6 +182,14 @@
 * 如果默认构建不满足需求，用户还可以自定义plugin实现，自定义plugin的方式详见[xpluginflow](./xpluginflow/sample/sample_plugin.cpp);
 
 # BUILD
+## 安装交叉编译工具链
+为编译在X2 Soc板上运行的可执行程序或库文件, 需要安装工具链：x2j2-aarch64-6.5.0
+具体安装交叉工具链压缩包, 如在公司内部可从以下地址下载：
+http://gallery.hobot.cc/download/aiot/toolchain/x2j2-aarch64/project/snapshot/linux/x86_64/general/basic/6.5.0/x2j2-aarch64-6.5.0.tar.xz
+如在公司外部，请联系技术支持人员获取工具链。
+
+安装完成后，把交叉编译工具路径加入到环境变量PATH中。
+`export PATH=/path/to/toolchain/gcc-linaro-6.5.0-2018.12-x86_64_aarch64-linux-gnu/bin:$PATH`    
 ## 开源repo的编译方式
 > mkdir build & cd build  
 > sh ../build.sh      

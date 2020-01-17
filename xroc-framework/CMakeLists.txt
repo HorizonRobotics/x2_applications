@@ -1,6 +1,11 @@
 cmake_minimum_required(VERSION 3.15)
 project(xroc-framework)
 
+option(PARENT_BUILD "is build from parent" OFF)
+if (NOT ${PARENT_BUILD})
+    include(cmake/hobot_tools.cmake)
+endif ()
+
 if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
     message("building release")
     list(APPEND CMAKE_C_FLAGS " -O3")
@@ -20,6 +25,22 @@ include_directories(
         include/log
         include/timer
 )
+if (NOT ${PARENT_BUILD})
+include_directories(
+        ${PROJECT_SOURCE_DIR}/deps/hobotlog/include
+        ${PROJECT_SOURCE_DIR}/deps/vision_type/include
+        ${PROJECT_SOURCE_DIR}/deps/opencv/include   
+        ${PROJECT_SOURCE_DIR}/deps/gtest/include
+        ${PROJECT_SOURCE_DIR}/deps/jsoncpp/include
+)
+link_directories(
+        ${PROJECT_SOURCE_DIR}/deps/hobotlog/lib
+        ${PROJECT_SOURCE_DIR}/deps/vision_type/lib
+        ${PROJECT_SOURCE_DIR}/deps/opencv/lib
+        ${PROJECT_SOURCE_DIR}/deps/jsoncpp/lib
+        ${PROJECT_SOURCE_DIR}/deps/gtest/lib
+)
+endif ()
 
 message("add src files ...")
 set(SOURCE_FILES
@@ -45,8 +66,10 @@ add_subdirectory(example/bbox_filter)
 
 add_subdirectory(test)
 
+if (NOT ${PARENT_BUILD})
+    set(OUTPUT_ROOT ${CMAKE_SOURCE_DIR}/deps)
+endif ()
 
-#set(OUTPUT_ROOT ${CMAKE_SOURCE_DIR}/deps/)
 set(MY_OUTPUT_ROOT ${OUTPUT_ROOT}/${PROJECT_NAME})
 
 install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/hobotxsdk

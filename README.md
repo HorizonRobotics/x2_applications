@@ -13,7 +13,6 @@
 - [BUILD](#build)
     - [安装交叉编译工具链](#安装交叉编译工具链)
     - [开源repo的编译方式](#开源repo的编译方式)
-    - [基础库重新编译之后，依赖于该基础库的repo也要重新编译](#基础库重新编译之后依赖于该基础库的repo也要重新编译)
 - [Deploy](#deploy)
 
 <!-- /TOC -->
@@ -195,7 +194,6 @@ http://gallery.hobot.cc/download/aiot/toolchain/x2j2-aarch64/project/snapshot/li
 > sh ../build.sh      
 
 编译完成的库在build/lib, main程序为bin/xppcp_smart。
-## 基础库重新编译之后，依赖于该基础库的repo也要重新编译
 
 # Deploy
 部署包为smartplugin/deploy/下的xppcp_smart，完成vio适配后，将其copy到设备上运行`sh xpp_start.sh`就可以执行。

@@ -655,7 +655,8 @@ MethodPtr MethodFactory::CreateMethod(const std::string &method_name) {
 |          | SCHED_RR   | 1）也是一种实时调度策略，优先级高于SCHED_OTHER；可设置线程优先级范围1~99，值越大优先级越高；2）SCHED_RR调度策略本身是SCHED_FIFO的简单增强版，两者大部分属性是一样的；区别在于对于相同优先级的线程，SCHED_RR对于相同优先级的线程也是采用时间片轮转的方式，一个线程做完自己的时间片之后就放在该优先级线程的队尾，反之SCHED_FIFO不会主动让出线程；|
 |          | SCHED_BATCH | SCHED_BATCH是为批处理任务设计的优先级调度策略，SCHED_IDLE的线程优先级特别低；跟SCHED_OTHER调度策略一样，优先级恒为0，不能设置； |
 |          | SCHED_BATCH  | SCHED_DEADLINE顾名思义，是一种可以给线程设置deadline的调度策略；
-| priority   |   1~99     | 仅在 policy 设置为 SCHED_FIFO， SCHED_RR 时可以设置|
+| priority   |   1~99     | 仅在 policy 设置为 SCHED_FIFO， SCHED_RR 时可以设置|     
+
 **optional**   
 **——sched_upper** : workflow调度线程   
 **——sched_down** :  workflow中Node的公共守护线程   ***   

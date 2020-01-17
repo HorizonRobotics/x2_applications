@@ -171,12 +171,12 @@
 * vio配置参数详解见[vioplugin](./vioplugin/README.md);   
 * 如果当前vioplugin不能满足终端需求，请及时联系地平线人员提供支持。
 2. **基于XRoc-framework集成模型、开发算法策略模块等**  
-* XRoc-framework提供了面向数据流的编程框架，基于该框架可以将多个业务模块串联起来构建一个workflow，模型集成或者算法策略模块以method的形式加入workflow中。[tutorials](xroc-framework/tutorials/README.md)  
-* XRoc的开发指南见XRoc-framwork/tutorials;
+* XRoc-framework提供了面向数据流的编程框架，基于该框架可以将多个业务模块串联起来构建一个workflow，模型集成或者算法策略模块以method的形式加入workflow中。
+* [tutorials](xroc-framework/tutorials/README.md) 、[XRoc的开发手册](xroc-framework/README.md);
 * 该repo预提供了几个method（fasterrcnnmethod, cnnmethod, Snapfiltermethod, Gradingmethod，Snapshotmethod等）， 基于这些method可以构建人脸抓拍识别workflow;  
 * Fasterrcnnmethod、CNNMethod对模型集成做了部分抽象，建议用户基于此完成自己的模型适配或者集成新的模型;
 3. **基于SmartPlugin构建Solution**
-* Smartplugin为该工程构建solution的入口，保护main程序（smartplugin/sample/smart_main.cpp）;
+* Smartplugin为该工程构建solution的入口，包含main程序（smartplugin/sample/smart_main.cpp）;
 * 默认实现是基于XRoc-framework面向workflow的通用接口实现了单workflow的AI应用运行框架;大部分情况下，用户可基于该实现通过简单修改完成自己的solution构建，构建过程详细参考[smartplugin](./smartplugin/README.md);
 * 如果默认构建不满足需求，用户还可以自定义plugin实现，自定义plugin的方式详见[xpluginflow](./xpluginflow/sample/sample_plugin.cpp);
 
@@ -187,7 +187,7 @@
 http://gallery.hobot.cc/download/aiot/toolchain/x2j2-aarch64/project/snapshot/linux/x86_64/general/basic/6.5.0/x2j2-aarch64-6.5.0.tar.xz
 如在公司外部，请联系技术支持人员获取工具链。
 
-安装完成后，把交叉编译工具路径加入到环境变量PATH中。
+安装完成后，把交叉编译工具路径加入到环境变量PATH中。  
 `export PATH=/path/to/toolchain/gcc-linaro-6.5.0-2018.12-x86_64_aarch64-linux-gnu/bin:$PATH`    
 ## 开源repo的编译方式
 > mkdir build & cd build  

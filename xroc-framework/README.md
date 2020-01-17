@@ -96,30 +96,29 @@ XRoc-Framwork是一种基于数据流的SDK编程框架：
  * example:
 *bbox_filter_example*   
 ——以HobotXRoc::BBox为数据类型, 基于XRoc C++语言API编写的Example案例
-
-  * unit test:
+* unit_test:   
 *config_test*   
-—— 配置相关的单元测试
-*cpp_api_test*  
-—— C++ API的集中单元测试
-*disable_method_test*  
-—— 不同方式关闭特定method的单元测试
-*node_test* 
-—— 对Node节点的单元测试
-*xroc_multisource_test* 
-—— 对多路输入源的单元测试
-*xroc_test* 
-—— XRoc SDK接口额单元测试
-*xroc_threadmodel_test* 
-—— XRoc 线程模式(线程池运行方式)的单元测试
-*xroc_threadorder_test*
-—— XRoc 线程优先级的单元测试
-*xroc_threadsafe_test*
-—— XRoc 线程安全的单元测试
-*xroc_callback_test*
-—— XRoc callback回调的单元测试
-*profiler_test*
-—— XRoc profiler工具的单元测试
+—— 配置相关的单元测试   
+*cpp_api_test*    
+—— C++ API的集中单元测试   
+*disable_method_test*    
+—— 不同方式关闭特定method的单元测试   
+*node_test*   
+—— 对Node节点的单元测试   
+*xroc_multisource_test*    
+—— 对多路输入源的单元测试   
+*xroc_test*    
+—— XRoc SDK接口额单元测试   
+*xroc_threadmodel_test*    
+—— XRoc 线程模式(线程池运行方式)的单元测试   
+*xroc_threadorder_test*   
+—— XRoc 线程优先级的单元测试   
+*xroc_threadsafe_test*   
+—— XRoc 线程安全的单元测试   
+*xroc_callback_test*   
+—— XRoc callback回调的单元测试   
+*profiler_test*   
+—— XRoc profiler工具的单元测试   
 
 ### 环境信息
 X2：64位 gcc-linaro-6.5.0   

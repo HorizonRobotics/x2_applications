@@ -29,7 +29,7 @@
 1）可以通过JSON配置构建workflow，workflow是一个有向拓扑图，图中每个节点（Node）管理了一个或多个同类型method的实例；  
 2）method表示一种能力，通常是某类模型能力（人脸检测、人脸Pose等）或者算法策略（过滤策略、融合策略、优选策略等）;   
 3）workflow表示一个范式，定义了一组能力的串联方式，比如人脸检测、跟踪、属性（pose、blur等）以及优选等能力级联起来可以构建一个人脸抓拍范式；   
-4）XRoc-Framework定义了一套面向workflow的通用sdk C++接口，通过设置不同的配置文件同一套接口可以运行不同的workflow。
+4）XRoc-Framework定义了一套面向workflow的sdk C++通用接口，通过设置不同的配置文件同一套接口可以运行不同的workflow。
 
 下图是在ipc平台，从算法训练到部署环节XPP与XRoc的位置：  
 ![xpp&xpp-arch](doc/images/xpp-xroc-arch-ipc.png)
@@ -43,6 +43,7 @@
 # 工程组织
 ## 目录结构
 ```
+.
 ├── cnnmethod
 │   ├── example
 │   ├── include
@@ -66,11 +67,11 @@
 │   ├── protobuf
 │   ├── vision_type
 │   ├── x2_prebuilt
+│   ├── xroc-framework
 │   └── xroc-imagetools
 ├── facesnapfiltermethod
 │   ├── cmake
 │   ├── config
-│   ├── deps -> ../external/
 │   ├── include
 │   ├── src
 │   └── test
@@ -122,7 +123,9 @@
 │   ├── src
 │   └── test
 └── xroc-framework
+    ├── cmake
     ├── config
+    ├── deps -> ../external/
     ├── doc
     ├── example
     ├── include
@@ -167,7 +170,7 @@
 
 # 构建Solution
 1. **适配vio**  
-* 不同的终端设备可能会有不同的输入接口(mipi、bt1120)、不同的cam配置（单目、双目），以及不同的应用场景（实时视频流或者回灌模式）等，因此在构建solution之前需要先视频vio配置;   
+* 不同的终端设备可能会有不同的输入接口(mipi、bt1120)、不同的cam配置（单目、双目），以及不同的应用场景（实时视频流或者回灌模式）等，因此在构建solution之前需要先适配vio配置;   
 * vio配置参数详解见[vioplugin](./vioplugin/README.md);   
 * 如果当前vioplugin不能满足终端需求，请及时联系地平线人员提供支持。
 2. **基于XRoc-framework集成模型、开发算法策略模块等**  
@@ -196,5 +199,10 @@ http://gallery.hobot.cc/download/aiot/toolchain/x2j2-aarch64/project/snapshot/li
 编译完成的库在build/lib, main程序为bin/xppcp_smart。
 
 # Deploy
+编译完成之后:
+> cd build      
+> sh ../deploy.sh  
+
+在build目录下可以得到新的部署包`xppcp_smart.tgz`.     
 部署包为smartplugin/deploy/下的xppcp_smart，完成vio适配后，将其copy到设备上运行`sh xpp_start.sh`就可以执行。
 

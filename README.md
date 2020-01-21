@@ -7,10 +7,10 @@
     - [安装交叉编译工具链](#安装交叉编译工具链)
     - [开源repo的编译方式](#开源repo的编译方式)
 - [Deploy](#deploy)
-    - [总体架构](#总体架构)
-        - [XPP(X2 prototype platform)](#xppx2-prototype-platform)
-        - [XRoc-framework](#xroc-framework)
-        - [从模型训练到部署:XPP&XRoc的位置](#从模型训练到部署xppxroc的位置)
+- [总体架构](#总体架构)
+    - [XPP(X2 prototype platform)](#xppx2-prototype-platform)
+    - [XRoc-framework](#xroc-framework)
+    - [从模型训练到部署:XPP&XRoc的位置](#从模型训练到部署xppxroc的位置)
 - [工程组织](#工程组织)
     - [目录结构](#目录结构)
     - [external](#external)
@@ -59,9 +59,9 @@ http://gallery.hobot.cc/download/aiot/toolchain/x2j2-aarch64/project/snapshot/li
 在build目录下可以得到新的部署包`xppcp_smart.tgz`.     
 完成vio适配后，将其copy到设备上运行`sh xpp_start.sh`就可以执行。
 
-##  总体架构
+#  总体架构
 该Solution方案主要由两层架构构成：   
-### XPP(X2 prototype platform)
+## XPP(X2 prototype platform)
 * 主要为了解耦合输入VIO与智能处理单元（通常需要BPU处理）、以及输出模块（通过BIF传输等）;XPP实现了一个松耦合的消息订阅与分发机制，输入、智能处理、输出等模块被抽象成一个个插件单元，每个插件可以通过总线订阅感兴趣的消息，同时也可以把合法的消息通过总线分发出去。   
 * 该solution定义的插件及消息类型如下：
 ![xpp-plugin-message](./doc/images/xpp-message-arch.png)
@@ -73,7 +73,7 @@ http://gallery.hobot.cc/download/aiot/toolchain/x2j2-aarch64/project/snapshot/li
 * [基于XPP的消息订阅与分发Sample](./xpluginflow/sample/sample_plugin.cpp);  
 * [Solution main函数入口](./smartplugin/sample/smart_main.cpp) 
 
-### XRoc-framework
+## XRoc-framework
 * XRoc-framework是一种基于数据流的编程框架，在smartplugin中我们基于xroc定义了一个人脸抓拍识别的workflow;
 * 该框架可以通过JSON配置构建workflow，workflow是一个有向拓扑图，图中每个节点（Node）管理了一个或多个同类型method的实例;
 * 在XRoc中method表示一种能力，通常是某类模型能力（人脸检测、人脸Pose等）或者算法策略（过滤策略、融合策略、优选策略等）;   
@@ -84,7 +84,7 @@ http://gallery.hobot.cc/download/aiot/toolchain/x2j2-aarch64/project/snapshot/li
 * [tutorials](xroc-framework/tutorials/README.md) 
 * [XRoc的开发手册](xroc-framework/README.md);   
 
-### 从模型训练到部署:XPP&XRoc的位置
+## 从模型训练到部署:XPP&XRoc的位置
 下图是在ipc平台，从算法训练到部署环节XPP与XRoc的位置：  
 ![xpp&xpp-arch](doc/images/xpp-xroc-arch-ipc.png)
 - 这张图以XPP IPC的架构为例，IPC为CP-AP架构，X2作为CP(Co-Processor)主要用于AI加速，AP(Application Processor)作为应用处理器，通常负责视频、图像处理（如编解码）。

@@ -65,9 +65,9 @@ http://gallery.hobot.cc/download/aiot/toolchain/x2j2-aarch64/project/snapshot/li
 * 主要为了解耦合输入VIO与智能处理单元（通常需要BPU处理）、以及输出模块（通过BIF传输等）;XPP实现了一个松耦合的消息订阅与分发机制，输入、智能处理、输出等模块被抽象成一个个插件单元，每个插件可以通过总线订阅感兴趣的消息，同时也可以把合法的消息通过总线分发出去。   
 * 该solution定义的插件及消息类型如下：
 ![xpp-plugin-message](./doc/images/xpp-message-arch.png)
-**vioplugin**: VIO处理单元，输出是一帧帧图像；如果智能模块来不及处理，vioplugin还会主动发送丢帧信息；
-**smartplugin**: 智能处理模块，基于XRoc-framework定义了一个人脸抓拍识别的workflow;
-**hbipcplugin**:　基于BIF的输出模块，*该solution暂未加载该插件*．    
+**vioplugin**:VIO处理单元，产生一帧帧图像帧消息；如果智能模块来不及处理，vioplugin还会主动发送丢帧消息；     　　　
+**smartplugin**:智能处理模块，监听VIO输出的图像帧消息，完成智能化处理，并产生智能帧消息（人脸检测框、人脸特征值等）；该智能单元基于XRoc-framework定义了一个人脸抓拍识别的workflow;   
+**hbipcplugin**:基于BIF的输出模块，监听VIO丢帧消息以及smartplugin发送对智能帧消息，完成数据转发；*该solution暂未加载该插件*    
 
 参考链接：   
 * [基于XPP的消息订阅与分发Sample](./xpluginflow/sample/sample_plugin.cpp);  

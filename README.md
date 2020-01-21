@@ -67,7 +67,7 @@ http://gallery.hobot.cc/download/aiot/toolchain/x2j2-aarch64/project/snapshot/li
 ![xpp-plugin-message](./doc/images/xpp-message-arch.png)
 **vioplugin**:VIO处理单元，产生一帧帧图像帧消息；如果智能模块来不及处理，vioplugin还会主动发送丢帧消息；     　　　
 **smartplugin**:智能处理模块，监听VIO输出的图像帧消息，完成智能化处理，并产生智能帧消息（人脸检测框、人脸特征值等）；该智能单元基于XRoc-framework定义了一个人脸抓拍识别的workflow;   
-**hbipcplugin**:基于BIF的输出模块，监听VIO丢帧消息以及smartplugin发送对智能帧消息，完成数据转发；*该solution暂未加载该插件*    
+**hbipcplugin**:基于BIF的输出模块，监听VIO丢帧消息以及smartplugin发送的智能帧消息，完成数据转发；*该solution暂未加载该插件*    
 
 参考链接：   
 * [基于XPP的消息订阅与分发Sample](./xpluginflow/sample/sample_plugin.cpp);  
@@ -90,9 +90,9 @@ http://gallery.hobot.cc/download/aiot/toolchain/x2j2-aarch64/project/snapshot/li
 - 这张图以XPP IPC的架构为例，IPC为CP-AP架构，X2作为CP(Co-Processor)主要用于AI加速，AP(Application Processor)作为应用处理器，通常负责视频、图像处理（如编解码）。
 - XPP划分的基本模块：VIOPlugin（X2视频输入基本模块）、SmartPlugin（智能业务基本模块）、HbipcPlugin（X2 bif基础模块，负责CP-AP侧通信）;
 - 为了适配不同的智能化应用及智能化应用的跨平台迁移，XPP将输入（VIO）、智能化模块、输出（hbipc）等抽象为独立的插件（plugin），并定义了插件之间的标准通信接口，再通过消息总线完成不同插件之间的数据交互；基于上述架构，通过抽象vioplugin、smartplugin、hbipcplugin通用接口，对不同的平台（96board 或者X2 IPC）需要做的只是适配vioplugin与hbipcplugin，smartplugin可以自由在不同X2 平台迁移。
-- 输入（VIOPlugin）、输出（HbipcPlugin）模块已沉淀为基础组件，通常开发者只需要关注算法或者算法策略（SmartPlugin）。
+- 输入（VIOPlugin）、输出（HbipcPlugin）模块已沉淀为基础组件，通常开发者只需要关注算法或者算法策略（SmartPlugin）开发。
 - SmartPlugin目前默认实现是基于XRoc-framework面向workflow的通用接口实现了单workflow的AI应用运行框架；XROC framework是组织业务workflow的运行框架，同时该框架提供了基于配置串联workflow的能力，以及由workflow构建算法sdk的通用接口等；XRoc workflow由一系列method组成，每个method都表示一个算法能力或策略；
-- **通过地平线工具链训练完成模型后，开发者在XRoc框架下只需要实现对应Method用于模型对前后处理，该method加入workflow中，和其他模块一起构建了一个AI solution SDK．**
+- **通过地平线工具链训练完成模型后，开发者在XRoc框架下只需要实现对应Method用于模型的前后处理，该method加入workflow中，和其他模块一起构建了一个AI solution SDK．**
 - 上图中X2 IPC　AP侧对智能结果不做处理，仅仅透传给pc前端,前端负责完成一些渲染工作．
 # 工程组织
 ## 目录结构

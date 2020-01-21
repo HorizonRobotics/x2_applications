@@ -10,7 +10,7 @@
     - [总体架构](#总体架构)
         - [XPP(X2 prototype platform)](#xppx2-prototype-platform)
         - [XRoc-framework](#xroc-framework)
-        - [从模型训练到部署XPP&XRoc的位置](#从模型训练到部署xppxroc的位置)
+        - [从模型训练到部署:XPP&XRoc的位置](#从模型训练到部署xppxroc的位置)
 - [工程组织](#工程组织)
     - [目录结构](#目录结构)
     - [external](#external)
@@ -84,7 +84,7 @@ http://gallery.hobot.cc/download/aiot/toolchain/x2j2-aarch64/project/snapshot/li
 * [tutorials](xroc-framework/tutorials/README.md) 
 * [XRoc的开发手册](xroc-framework/README.md);   
 
-### 从模型训练到部署XPP&XRoc的位置
+### 从模型训练到部署:XPP&XRoc的位置
 下图是在ipc平台，从算法训练到部署环节XPP与XRoc的位置：  
 ![xpp&xpp-arch](doc/images/xpp-xroc-arch-ipc.png)
 - 这张图以XPP IPC的架构为例，IPC为CP-AP架构，X2作为CP(Co-Processor)主要用于AI加速，AP(Application Processor)作为应用处理器，通常负责视频、图像处理（如编解码）。

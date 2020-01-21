@@ -16,7 +16,7 @@
     - [external](#external)
             - [预编译库](#预编译库)
     - [开源库](#开源库)
-- [构建Solution](#构建solution)
+- [基于该repo二次开发升级solution](#基于该repo二次开发升级solution)
 
 <!-- /TOC -->
 # 综述
@@ -222,7 +222,7 @@ http://gallery.hobot.cc/download/aiot/toolchain/x2j2-aarch64/project/snapshot/li
 * SmartPlugin: 基于xpluginflow的智能处理插件，监听vioplugin输出信息;默认实现是基于XRoc-framework面向workflow的通用接口实现了单workflow的AI应用运行框架;  
 ***基于该工程构建solution的入口main函数在smartplugin/sample/smart_main.cpp***
 
-# 构建Solution
+# 基于该repo二次开发升级solution
 1. **适配vio**  
 * 不同的终端设备可能会有不同的输入接口(mipi、bt1120)、不同的cam配置（单目、双目），以及不同的应用场景（实时视频流或者回灌模式）等，因此在构建solution之前需要先适配vio配置;   
 * vio配置参数详解见[vioplugin](./vioplugin/README.md);   

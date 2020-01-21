@@ -5,7 +5,7 @@ XRoc-Framework是一种基于数据流的SDK编程框架：
 1）可以通过JSON配置构建一个workflow，workflow是一个有向拓扑图，图中每个节点（Node）都是一个或多个method实例;    
 2）method表示一种能力，能力通常是某类模型能力（人脸检测、人脸Pose等）或者算法策略（过滤策略、融合策略、优选策略等）;  
 3）workflow表示一个范式，定义一组能力的串联方式，如下图定义了人脸抓拍范式，其中融合了检测、跟踪、人脸属性（pose、blur）以及优选策略等能力;  
-4）XRoc-Framework定义了一套通用SDK C++接口。
+4）XRoc-Framework定义了一套面向workflow的SDK通用接口(C++)。
 
 ![tutorials_readme](stage1/doc/images/tutorials_readme.png)
 

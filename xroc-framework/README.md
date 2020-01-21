@@ -65,14 +65,14 @@ XRoc-Framwork是一种基于数据流的SDK编程框架：
 1）可以通过JSON配置构建workflow，workflow是一个有向拓扑图，图中每个节点（Node）都管理了一个或多个同类型的method的实例；  
 2）method表示一种能力，通常是某类模型能力（人脸检测、人脸Pose等）或者算法策略（过滤策略、融合策略、优选策略等）；  
 3）workflow表示一个范式，定义了一组能力的串联方式，比如人脸检测、跟踪、属性（pose、blur等）以及优选等能力级联起来可以构建一个人脸抓拍范式；  
-4）XRoc-Framework定义了一套面向workflow的通用sdk C++接口，通过设置不同的配置文件同一套接口可以运行不同的workflow。   
+4）XRoc-Framework定义了一套面向workflow的sdk通用接口(C++)，通过设置不同的配置文件同一套接口可以运行不同的workflow。   
 
 ![XRoc概貌](./doc/images/image-xroc-arch.png "XRoc概貌")
 ### XRoc Framework核心模块
 |模块名称或名词  | 描述或解释  |
 |:-----:   |:------|
 |workflow  | workflow表示一个有向拓扑图，图中每个节点（Node）都管理着一个或多个method实例；workflow表示一个范式，定义了一组能力的串联方式，比如人脸检测、跟踪、属性（pose、blur等）以及优选等能力级联起来可以构建一个人脸抓拍范式；XRocSDK的SetConfig接口指定的配置文件定义了workflow组织方式。|
-|XRocSDK   | 对外SDK类，定义了一套面向workflow的通用sdk C++接口，包含创建句柄、初始化、参数配置、同步/异步运行接口、设置回调函数等。|
+|XRocSDK   | 对外SDK类，定义了一套面向workflow的sdk通用接口(C++)，包含创建句柄、初始化、参数配置、同步/异步运行接口、设置回调函数等。|
 |Scheduler | workflow的依赖引擎，记录各个Node之间的依赖关系，统一调度各个Node，确保各Node按序完成workflow任务。|
 |Node      | 管理一个或多个同类型的method实例，同时负责任务的分发与后处理，另外根据method的属性可以完成帧的重排序，根据输入参数完成Node skip等。|
 |MethodManager | 用来Node中Method的管理，包含实例创建、线程池构建及不同阶段调用method对应接口完成初始化、任务分发、参数配置等工作。 |
@@ -124,7 +124,7 @@ XRoc-Framwork是一种基于数据流的SDK编程框架：
 X2：64位 gcc-linaro-6.5.0   
 
 ## Step by step构建XRoc SDK 
-xroc给使用者提供了面向workflow的通用sdk接口，可以获取workflow中每个节点的输出结果。
+xroc给使用者提供了面向workflow的sdk通用接口，可以获取workflow中每个节点的输出结果。
 c++语言版本 XRoc SDK接口定义在 include/hobotxsdk/xroc_sdk.h
 ### XRoc SDK接口定义
 ```c++
